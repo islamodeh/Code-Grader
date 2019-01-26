@@ -5,6 +5,7 @@ gem 'rails', '~> 5.2.2'
 gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'devise'
+gem 'haml'
 
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'
