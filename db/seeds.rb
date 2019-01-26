@@ -1,10 +1,10 @@
 student = Student.create!(email: "2014000@std.psut.edu.jo",
                           full_name: "test_std",
-                          password: "123")
+                          password: "123456")
 
 instructor = Instructor.create!(email: "test.doctor@psut.edu.jo",
                                 full_name: "test_inst.",
-                                password: "123")
+                                password: "123456")
 
 course = instructor.courses.create!(name: "Penetration Testing",
                                     section: 1,
