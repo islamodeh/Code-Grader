@@ -15,9 +15,9 @@ module ApplicationHelper
       destroy_student_session_path
     end
   end
-  
+
   def profile_path
-  case current_user.class.name
+    case current_user.class.name
     when "Instructor"
       instructors_path
     when "Student"
@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def edit_path
-  case current_user.class.name
+    case current_user.class.name
     when "Instructor"
       edit_instructor_registration_path
     when "Student"
