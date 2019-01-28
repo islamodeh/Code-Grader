@@ -1,0 +1,19 @@
+.center
+  %h3
+    = "Welcome " + (current_user.full_name.present? ? current_user.full_name : "Instructor") + ", What would you like to do for today ?"
+  %br
+  %br
+  %br
+  %br
+  %br
+  %h4
+    .row
+      .col
+        = link_to "Add a new course", new_instructor_course_path, class: "btn btn-outline-success"
+      .col
+        = link_to "Add a new assignemt/quiz", instructor_courses_path, class: "btn btn-outline-success"
+  %br
+  %br
+  %br
+  %h3= "Your courses"
+  = "..."

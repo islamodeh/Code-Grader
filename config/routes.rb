@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :instructors, skip: :registrations
+  
+  devise_for :instructor, skip: :registrations
   devise_scope :instructor do
     resource :registration,
       only: [:new, :create, :edit, :update],
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
       end
   end
   
-  devise_for :students, skip: [:registrations]
+  devise_for :student, skip: [:registrations]
   devise_scope :student do
     resource :registration,
       only: [:new, :create, :edit, :update],
@@ -25,8 +26,10 @@ Rails.application.routes.draw do
   
   # Instructor
 
-  resources :instructors, controller: "instructors/instructors"
-  namespace :instructors do
+  # resources :instructor, controller: "instructors/instructor", only: [:index]
+
+  namespace :instructor do
+    get "/", to: "instructor#index"
     resources :courses do
       resources :works do
         resources :submissions
@@ -36,8 +39,8 @@ Rails.application.routes.draw do
 
   # Student
 
-  resources :students, controller: "students/students"
-  namespace :students do
+  namespace :student do
+    get "/", to: "student#index"
     resources :courses do
       resources :works do
         resources :submissions

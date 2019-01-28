@@ -21,10 +21,12 @@
         <li class="nav-item active">
           <%= link_to "Home", current_user.present? ? profile_path : root_path, class: "nav-link" %>
         </li>
+        <%= current_user_navbar_functions %>
       </ul>
 
       <ul class="navbar-nav">
         <% if current_user.present? %>
+          <img src="/assets/image.jpg" width="35" height="35" alt="" class="rounded-circle profile-icon">
           <li class="nav-item active">
             <%= link_to current_user.email, edit_path, class: "nav-link" %>
           </li>
@@ -44,8 +46,9 @@
   </nav>
   
   <br>
+
   <body class="<%= controller_name%> <%= action_name %>">
-    <div class="container center">
+    <div class="container">
       <% flash.each do |key, value| %>
         <!-- for devise -->
         <% if key === "alert" %>
@@ -55,7 +58,7 @@
         <% end %>
         <div class="alert alert-<%= key %>"><%= value %></div>
       <% end %>
-      <br>
+      <hr>
       <%= yield %>
     </div>
   </body>

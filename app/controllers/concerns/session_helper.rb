@@ -4,9 +4,9 @@ module SessionHelper
   def after_sign_in_path_for(user)
     case user.class.name
     when "Instructor"
-      instructors_path
+      instructor_path
     when "Student"
-      students_path
+      student_path
     else
       root_path
     end
