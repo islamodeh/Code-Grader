@@ -3,4 +3,6 @@ class Course < ApplicationRecord
   has_many :students, through: :enrollments
   has_many :works, dependent: :destroy
   belongs_to :instructor
+
+  validates :name, :section, presence: :true
 end

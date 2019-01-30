@@ -1,4 +1,4 @@
-class Student::StudentController < ApplicationController
+class Student::StudentsController < ApplicationController
   before_action :authenticate_student!
   
   def index

@@ -26,10 +26,8 @@ Rails.application.routes.draw do
   
   # Instructor
 
-  # resources :instructor, controller: "instructors/instructor", only: [:index]
-
   namespace :instructor do
-    get "/", to: "instructor#index"
+    get "/", to: "instructors#index"
     resources :courses do
       resources :works do
         resources :submissions
@@ -40,7 +38,7 @@ Rails.application.routes.draw do
   # Student
 
   namespace :student do
-    get "/", to: "student#index"
+    get "/", to: "students#index"
     resources :courses do
       resources :works do
         resources :submissions
