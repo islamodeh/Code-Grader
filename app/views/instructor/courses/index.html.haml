@@ -1,1 +1,18 @@
-= "213"
+.center
+  %h2= "My courses"
+  %br
+  - @courses.each_with_index do |course, index|
+    %h4
+      = course.name
+      = "(Section: #{course.section})"
+    %br
+    = course.description
+    %br
+    %br
+    %h6
+      = "Currently enrolled students: #{course.students.count} student"
+    %br
+    = link_to "Details", instructor_course_path(course.id), class: "btn btn-warning"
+    = link_to "Edit course", edit_instructor_course_path(course.id), class: "btn btn-warning"
+
+    %hr

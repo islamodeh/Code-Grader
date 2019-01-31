@@ -1,16 +1,17 @@
-student = Student.create!(email: "2014000@std.psut.edu.jo",
+student = Student.create!(email: "islamodeh@hotmail.com",
                           full_name: "test_std",
-                          password: "123456")
+                          password: "islamodeh@hotmail.com")
 
-instructor = Instructor.create!(email: "test.doctor@psut.edu.jo",
+instructor = Instructor.create!(email: "islamodeh@hotmail.com",
                                 full_name: "test_inst.",
-                                password: "123456")
+                                password: "islamodeh@hotmail.com")
 
-course = instructor.courses.create!(name: "Penetration Testing",
+
+course = instructor.courses.create!(name: "Network Forensics",
                                     section: 1,
-                                    description: "hacking 101")
+                                    description: "This course covers computer security and network forensics, forensic duplication and analysis, network surveillance, intrusion detection and prevention, incident response and trace-back. Signature and anomaly based intrusion detection, Pattern matching algorithms, Viruses, Trojans and worms detection. Multicast Fingerprinting, Anonymity and Pseudonym.")
 
-work = course.works.create!(work_type: "assigment", description: "GG WP")
+work = course.works.create!(work_type: "assignment", description: "GG WP")
 
 work.samples.create!(input: "1 2", output: "3")
 

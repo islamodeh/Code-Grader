@@ -3,7 +3,7 @@ class CreateWorks < ActiveRecord::Migration[5.2]
     create_table :works do |t|
       t.integer :course_id
       t.string :work_type
-      t.string :description
+      t.text :description
       t.timestamps
     end
   end

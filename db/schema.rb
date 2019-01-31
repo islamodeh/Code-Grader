@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2019_01_26_121930) do
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "section"
-    t.string "description"
+    t.text "description"
     t.integer "instructor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2019_01_26_121930) do
 
   create_table "submissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "status"
-    t.string "code"
+    t.text "code"
     t.string "language"
     t.integer "grade"
     t.integer "work_id"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_01_26_121930) do
   create_table "works", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
     t.string "work_type"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

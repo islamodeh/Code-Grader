@@ -1,0 +1,13 @@
+.center
+  = form_for [:instructor, @course] do |f|
+    = f.label :name
+    = f.text_field :name, class: "form-control center"
+    %br
+    = f.label :section
+    = f.text_field :section, class: "form-control center"
+    %br
+    = f.label :description
+    = f.text_area :description, class: "form-control center"
+    %br
+    = f.submit "Update!", class: "btn btn-warning"
+    
