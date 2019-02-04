@@ -1,0 +1,51 @@
+.center
+  %h2
+    = "You have #{@course.assignments.count} Assignments & #{@course.quizzes.count} Quizzes for #{@course.name} course!"
+    %br
+    %br
+    /instructor/courses/:course_id/works/new
+    = link_to "Add a new Assignment/Quiz", new_instructor_course_work_path(@course.id), class: "btn btn-success"
+    %br
+    %br
+  - if @course.assignments.present?
+    %h4="Assignments"
+    %hr
+
+  - @course.assignments.each do |assignment|
+    .row
+      .col
+        = "Assignment Name"
+      .col
+        = "# Of submissions"
+      .col
+        = ""
+    %br
+    .row
+      .col
+        = assignment.name
+      .col
+        = assignment.submissions.count
+      .col
+        = link_to "View marks", "#", class: "btn btn-warning"
+        = link_to "View submissions", "#", class: "btn btn-warning"
+  - if @course.quizzes.present?
+    %h4="Assignments"
+    %hr
+
+  - @course.quizzes.each do |quiz|
+    .row
+      .col
+        = "Quiz Name"
+      .col
+        = "# Of submissions"
+      .col
+        = ""
+    %br
+    .row
+      .col
+        = quiz.name
+      .col
+        = quiz.submissions.count
+      .col
+        = link_to "View marks", "#", class: "btn btn-warning"
+        = link_to "View submissions", "#", class: "btn btn-warning"

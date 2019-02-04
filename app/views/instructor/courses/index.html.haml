@@ -12,6 +12,7 @@
     %h6
       = "Currently enrolled students: #{course.students.count} student"
     %br
+    = link_to "View Marks", "", class: "btn btn-warning"
     = link_to "Details", instructor_course_path(course.id), class: "btn btn-warning"
     = link_to "Edit course", edit_instructor_course_path(course.id), class: "btn btn-warning"
 

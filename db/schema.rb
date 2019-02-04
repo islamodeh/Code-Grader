@@ -104,8 +104,11 @@ ActiveRecord::Schema.define(version: 2019_01_26_121930) do
 
   create_table "works", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
+    t.string "name"
     t.string "work_type"
     t.text "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -6,7 +6,7 @@ module ApplicationHelper
       current_student
     end
   end
-
+  
   def logout_path
     case current_user.class.name
     when "Instructor"
@@ -45,5 +45,14 @@ module ApplicationHelper
       (link_to "My Courses", student_courses_path, class: "nav-link") +
      "</li>").html_safe
     end
+  end
+
+  def client_zone_name
+    # Should use client zone name using his ip address w/ controller.
+    "Asia/Muscat"
+  end
+  
+  def client_zone_time(time)
+    time.in_time_zone(client_zone_name)
   end
 end

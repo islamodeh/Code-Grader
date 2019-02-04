@@ -16,6 +16,11 @@ module SessionHelper
   #   binding.pry
   # end
   
+  def get_zone_name
+    # use client ip to get zone name..
+    "Asia/Muscat"
+  end
+  
   def current_user
     current_student || current_instructor
   end
