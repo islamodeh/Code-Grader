@@ -1,0 +1,46 @@
+.center
+  %h2
+    = "#{@course.name} Students"
+    %br
+    %br
+  - if @pending_students.count.positive?
+    %h4="Enrollment Requests"
+    %hr
+    .row.center
+      .col
+        = "#"
+      .col.overflow-wrap
+        = "Student email"
+      .col.overflow-wrap
+        =''
+    - @pending_students.each_with_index do |pending, index|
+      %br
+      .row.center
+        .col.overflow-wrap
+          = index + 1
+        .col.overflow-wrap
+          = pending.student.email
+        .col.overflow-wrap
+          = link_to "Approve",instructor_course_handle_enrollment_path(course: @course.id, student_id: pending.student_id, status: "Accepted"), class: "btn btn-success"
+          = link_to "Decline",instructor_course_handle_enrollment_path(course: @course.id, student_id: pending.student_id, status: "Declined"), class: "btn btn-danger"
+      %hr
+    %br
+  %h4="Students"
+  %hr
+  .row.center
+    .col
+      = "#"
+    .col.overflow-wrap
+      = "Student email"
+    .col.overflow-wrap
+      =''
+- @enrolled_students.each_with_index do |enrolled, index|
+  %br
+  .row.center
+    .col.overflow-wrap
+      = index + 1
+    .col.overflow-wrap
+      = enrolled.student.email
+    .col.overflow-wrap
+      = link_to "Kick",instructor_course_handle_enrollment_path(course: @course.id, student_id: enrolled.student_id, status: "Kick"), class: "btn btn-warning"
+  %hr

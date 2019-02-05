@@ -6,6 +6,14 @@ class Student < ApplicationRecord
          # :confirmable
   
   has_many :enrollments, dependent: :destroy
-  has_many :courses, through: :enrollments
+  # has_many :courses, through: :enrollments
   has_many :submissions, dependent: :destroy
+
+  def courses
+    enrollments.accepted
+  end
+
+  def pending_courses
+    enrollments.pending
+  end
 end

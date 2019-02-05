@@ -12,11 +12,10 @@
     %br
     .row
     = f.label :start_date
-    = f.datetime_select :start_date, default: client_zone_time(DateTime.current)
-    .row
-    = f.label :end_date
-    = f.datetime_select :end_date, default: client_zone_time(DateTime.current + 1.month)
+    = f.datetime_select :start_date
     %br
+    = f.label :end_date
+    = f.datetime_select :end_date
     .span.show_zone_name= "Using " + client_zone_name + " Zone"
     %br
-    = f.submit "Create work!", class: "btn btn-success"
+    = f.submit "Update work!", class: "btn btn-success"

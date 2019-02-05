@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   namespace :instructor do
     get "/", to: "instructors#index"
     resources :courses do
+      get "students", to: "students"
+      get "handle_enrollment", to: "handle_enrollment"
       resources :works do
         resources :submissions
       end

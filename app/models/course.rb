@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
   has_many :enrollments, dependent: :destroy
-  has_many :students, through: :enrollments
+  # has_many :students, through: :enrollments
   has_many :works, dependent: :destroy
   belongs_to :instructor
   
@@ -14,4 +14,13 @@ class Course < ApplicationRecord
   def assignments
     works.assignments
   end
+  
+  def pending_students
+    enrollments.pending
+  end
+
+  def enrolled_students
+    enrollments.accepted
+  end
+
 end
