@@ -1,7 +1,21 @@
-.row
-  .col-sm
-    = "student"
-  .col-sm
-    = "student"
-  .col-sm
-    = "student"
+.center
+  %h3
+    = "Welcome " + (current_student.full_name.present? ? current_student.full_name : "Student") + ", What would you like to do for today ?"
+  %br
+  %br
+  %br
+  %h4
+    .row
+      .col
+        = link_to "Join a course", student_course_search_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+      .col
+        = link_to "My Courses", student_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+    %br
+    .row
+      .col
+        = link_to "Send a notification to instuctor", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+      .col
+        = link_to "Report a problem", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+  %br
+  %br
+  %br

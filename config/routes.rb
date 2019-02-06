@@ -41,7 +41,9 @@ Rails.application.routes.draw do
 
   namespace :student do
     get "/", to: "students#index"
+    get "/course/search", to: "courses#search"
     resources :courses do
+      post "enroll", to: "enroll"
       resources :works do
         resources :submissions
       end

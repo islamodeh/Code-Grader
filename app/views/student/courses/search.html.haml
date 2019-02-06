@@ -1,0 +1,58 @@
+.center
+  - if @pending_courses.present?
+    %h2= "Pending Courses"
+    .row
+      .col
+        = "#"
+      .col
+        = "Name"
+      .col
+        = "Instructor"
+      .col
+        = "Section"
+      .col
+        = ""
+    %br
+    %hr
+    - @pending_courses.each_with_index do |course, index|
+      .row
+        .col
+          = index + 1
+        .col
+          = course.name
+        .col
+          = course.instructor.email
+        .col
+          = course.section
+        .col
+          = link_to "Cancel request", student_course_enroll_path(course.id, state: "unenroll"), method: :post, class: "btn btn-danger"
+      %hr
+    %br
+    %br
+  .row
+    .col
+      = "#"
+    .col
+      = "Name"
+    .col
+      = "Instructor"
+    .col
+      = "Section"
+    .col
+      = ""
+  %br
+  %hr
+  %h2="Courses"
+  - (@courses).each_with_index do |course, index|
+    .row
+      .col
+        = index + 1
+      .col
+        = course.name
+      .col
+        = course.instructor.email
+      .col
+        = course.section
+      .col
+        = link_to "Join course", student_course_enroll_path(course.id, state: "enroll"), method: :post, class: "btn btn-success"
+    %hr

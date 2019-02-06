@@ -10,10 +10,10 @@ class Student < ApplicationRecord
   has_many :submissions, dependent: :destroy
 
   def courses
-    enrollments.accepted
+    Course.where(id: enrollments.accepted.map(&:course_id))
   end
 
   def pending_courses
-    enrollments.pending
+    Course.where(id: enrollments.pending.map(&:course_id))
   end
 end
