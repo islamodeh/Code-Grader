@@ -1,5 +1,9 @@
 class Instructor::WorksController < Instructor::InstructorsController
   
+  def index
+    @course = current_instructor.courses.find_by(id: params[:course_id])
+  end
+
   def new
     @course = current_instructor.courses.find_by(id: params[:course_id])
     @work = @course.works.new

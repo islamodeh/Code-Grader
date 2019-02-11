@@ -1,0 +1,12 @@
+.center
+  %h3
+    = "Add a new submission for #{@course.name} course / #{@work.work_type} #{@work.name} "
+  %h5
+    = form_for [:student, :course, :work, Submission.new] do |f|
+      = f.text_area :code, class: "form-control code", value: @submission.code
+      %br
+      = "Language"
+      = f.select :language, Submission::LANGUAGES, selected: @submission.language
+      %br
+      %br
+      = f.submit @submission.id.present? ? "Update code" : "Submit code", class: "btn btn-success"

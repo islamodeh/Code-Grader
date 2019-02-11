@@ -49,7 +49,7 @@ module ApplicationHelper
 
   def client_zone_name
     # Should use client zone name using his ip address w/ controller.
-    "Asia/Muscat"
+    "Asia/Amman"
   end
   
   def client_zone_time(time)

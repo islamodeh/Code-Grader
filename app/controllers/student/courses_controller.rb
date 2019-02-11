@@ -1,5 +1,6 @@
 class Student::CoursesController < Student::StudentsController
   def index
+    @submissions = current_student.submissions
     @courses = current_student.courses
   end
   

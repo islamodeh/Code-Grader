@@ -1,0 +1,39 @@
+.center
+  %h2
+    = "You have #{@course.assignments.count} Assignments & #{@course.quizzes.count} Quizzes for #{@course.name} course!"
+    %br
+    %br
+  %h4="Works"
+  %hr
+
+  .row.center
+    .col.overflow-wrap
+      = "Type"
+    .col.overflow-wrap
+      = "#Mark"
+    .col.overflow-wrap
+      = "Description"
+    .col.overflow-wrap
+      = "Starting from"
+    .col.overflow-wrap
+      = "Ending in"
+    .col.overflow-wrap
+      = ""
+- @course.works.each do |work|
+  %br
+  .row.center
+    .col.overflow-wrap
+      = work.work_type
+    .col.overflow-wrap
+      = work.student_mark
+    .col.overflow-wrap
+      = work.description
+    .col.overflow-wrap
+      = client_zone_time(work.start_date)
+    .col.overflow-wrap
+      = client_zone_time(work.end_date)
+    .col.overflow-wrap
+      = link_to "Submit new code", new_student_course_work_submission_path(@course.id,work.id), class: "btn btn-warning"
+      %br
+      %br
+  %hr

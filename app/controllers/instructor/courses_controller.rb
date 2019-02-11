@@ -16,10 +16,6 @@ class Instructor::CoursesController < Instructor::InstructorsController
     end
     redirect_to(instructor_courses_path)
   end
-
-  def show
-    @course = current_instructor.courses.find_by(id: params[:id])
-  end
   
   def edit
     @course = current_instructor.courses.find_by(id: params[:id])

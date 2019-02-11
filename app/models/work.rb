@@ -1,6 +1,6 @@
 class Work < ApplicationRecord
   WORK_TYPE = %w(Quiz Assignment)
-  attr_accessor :zone_name
+  attr_accessor :zone_name, :student_id
 
   has_many :samples, dependent: :destroy
   has_many :submissions, dependent: :destroy
@@ -23,7 +23,12 @@ class Work < ApplicationRecord
     self.start_date = self.start_date - Time.zone_offset(offset).seconds
     self.end_date = self.end_date - Time.zone_offset(offset).seconds
   end
-
+  
+  def student_mark
+    submission = submissions.where(student_id: student_id).first
+    submission.present? ? submission.grade : 0
+  end
+  
   scope :assignments, lambda { where(work_type: "Assignment") }
   scope :quizzes, lambda { where(work_type: "Quiz") }
 end

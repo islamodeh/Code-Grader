@@ -18,7 +18,7 @@ module SessionHelper
   
   def get_zone_name
     # use client ip to get zone name..
-    "Asia/Muscat"
+    "Asia/Amman"
   end
   
   def current_user
