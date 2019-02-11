@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get "handle_enrollment", to: "handle_enrollment"
       resources :works do
         resources :submissions
+        resources :samples
       end
     end
   end

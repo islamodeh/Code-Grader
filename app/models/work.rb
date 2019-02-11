@@ -11,6 +11,7 @@ class Work < ApplicationRecord
   validates :work_type, inclusion: { in: WORK_TYPE,
     message: "%{value} is not a valid work type" }
   validate :check_dates
+  
   before_save :convert_date
 
   def check_dates

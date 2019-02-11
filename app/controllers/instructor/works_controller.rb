@@ -10,11 +10,12 @@ class Instructor::WorksController < Instructor::InstructorsController
     work.zone_name = get_zone_name
     work.save
     if work.valid?
-      flash[:success] = "#{work.work_type} created !"
+      flash[:success] = "#{work.work_type} created ! Please add at least 1 test sample so the students can submit their code!"
     else
       flash[:danger] = work.errors.full_messages.join(", ")
     end
-    redirect_to instructor_course_path(work)
+
+    redirect_to instructor_course_work_samples_path(params[:course_id], work.id)
   end
   
   def show
@@ -39,6 +40,14 @@ class Instructor::WorksController < Instructor::InstructorsController
     redirect_to instructor_course_path(course)
   end
   
+  def destroy
+    course = current_instructor.courses.find_by(id: params[:course_id])
+    work = course.works.find_by(id: params[:id])
+    work.destroy
+    flash["success"] = "#{work.work_type} deleted!"
+    redirect_to instructor_course_path(course)
+  end
+
   private
   def params_require
     params.require(:work).permit(:name, :work_type, :description, :start_date, :end_date)

@@ -42,5 +42,5 @@
     .col.overflow-wrap
       = enrolled.student.email
     .col.overflow-wrap
-      = link_to "Kick",instructor_course_handle_enrollment_path(course: @course.id, student_id: enrolled.student_id, status: "Kick"), class: "btn btn-warning"
+      = link_to "Kick",instructor_course_handle_enrollment_path(course: @course.id, student_id: enrolled.student_id, status: "Kick"), class: "btn btn-danger", data: { confirm: "Kicking the student will remove the student submissions and marks, kick #{enrolled.student.email} ?" }
   %hr

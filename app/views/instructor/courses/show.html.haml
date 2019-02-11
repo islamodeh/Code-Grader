@@ -21,7 +21,7 @@
     .col.overflow-wrap
       = "Ending in"
     .col.overflow-wrap
-      =''
+      = ""
 - @course.works.each do |work|
   %br
   .row.center
@@ -36,6 +36,6 @@
     .col.overflow-wrap
       = client_zone_time(work.end_date)
     .col.overflow-wrap
-      = link_to "Details", instructor_course_work_path(@course.id,work.id), class: "btn btn-warning"
+      = link_to "Samples", instructor_course_work_samples_path(@course.id,work.id), class: "btn btn-warning"
       = link_to "Edit", edit_instructor_course_work_path(@course.id, work.id), class: "btn btn-warning"
   %hr

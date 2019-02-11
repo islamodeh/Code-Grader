@@ -1,0 +1,31 @@
+.center
+  %h2= "#{@course.name} samples"
+  %br
+  /instructor/courses/:course_id/works/:work_id/samples/new(
+  = link_to "Add new sample", new_instructor_course_work_sample_path(@course.id, @work.id), class: "btn btn-success"
+  %br
+  %br
+  .row
+    .col.overflow-wrap
+      = "#"
+    .col.overflow-wrap
+      = "Input"
+    .col.overflow-wrap
+      = "Expected output"
+    .col.overflow-wrap
+      = ""
+  %hr
+  - @samples.each_with_index do |sample, index|
+    = form_for [:instructor, @course, @work, sample] do |f|
+      .row
+        .col.overflow-wrap
+          = index + 1
+        .col.overflow-wrap
+          = f.text_area :input, class: "form-control"
+        .col.overflow-wrap
+          = f.text_area :output, class: "form-control"
+        .col.overflow-wrap
+          = f.submit "Update!", class: "btn btn-warning"
+          = link_to "Delete!", instructor_course_work_sample_path(@course.id, @work.id, sample.id), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure you want to delete this sample ?"}
+    %br 
+    %hr
