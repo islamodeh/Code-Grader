@@ -13,7 +13,7 @@ docker exec -it vm /bin/sh -c 'useradd code-grader'
 docker exec -it vm /bin/sh -c 'echo "code-grader:M2R3V7gxFMaFx" | chpasswd'
 docker exec -it vm /bin/sh -c 'mkdir /home/code-grader'
 docker exec -it vm /bin/sh -c 'chown -R code-grader:code-grader /home/code-grader'
-echo "run user using docker run --user code-grader"
+echo "run user using docker run --user code-grader -itd vm"
 docker commit vm vm;
 echo "Removing container"
 docker rm -f vm

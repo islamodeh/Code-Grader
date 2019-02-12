@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'devise'
 gem 'haml'
+gem 'sucker_punch', '~> 2.0'
 
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'

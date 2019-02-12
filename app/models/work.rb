@@ -4,7 +4,7 @@ class Work < ApplicationRecord
 
   has_many :samples, dependent: :destroy
   has_many :submissions, dependent: :destroy
-  # belongs_to :course
+  belongs_to :course
 
   validates :description, :work_type, :name,
             :start_date, :end_date, presence: :true
@@ -24,9 +24,13 @@ class Work < ApplicationRecord
     self.end_date = self.end_date - Time.zone_offset(offset).seconds
   end
   
+  def can_submit
+    self.start_date < self.end_date
+  end
+
   def student_mark
     submission = submissions.where(student_id: student_id).first
-    submission.present? ? submission.grade : 0
+    submission.present? ? (submission.status == :finished ? submission.grade : submission.status) : "No submission"
   end
   
   scope :assignments, lambda { where(work_type: "Assignment") }

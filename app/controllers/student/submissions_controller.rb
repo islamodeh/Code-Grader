@@ -12,8 +12,11 @@ class Student::SubmissionsController < Student::StudentsController
     @submission = @work.submissions.first_or_initialize(student_id: current_student.id)
     @submission.code = params[:submission]["code"]
     @submission.language = params[:submission]["language"]
+    @submission.status = :pending
     if @submission.save
-      flash[:success] = "Code submitted successfuly."
+      # RunCode.perform_async(@submission)
+      @submission.run_code
+      flash[:success] = "Code submitted successfuly. Please wait few seconds for the result"
     else
       flash[:danger] = @submission.errors.full_messages.join(", ")
     end
