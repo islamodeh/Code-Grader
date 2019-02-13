@@ -12,7 +12,7 @@ class Student::SubmissionsController < Student::StudentsController
     @submission = @work.submissions.first_or_initialize(student_id: current_student.id)
     @submission.code = params[:submission]["code"]
     @submission.language = params[:submission]["language"]
-    @submission.status = :pending
+    @submission.status = "Pending".to_sym
     if @submission.save
       # RunCode.perform_async(@submission)
       @submission.run_code

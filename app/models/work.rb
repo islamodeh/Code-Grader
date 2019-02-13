@@ -24,15 +24,15 @@ class Work < ApplicationRecord
     self.end_date = self.end_date - Time.zone_offset(offset).seconds
   end
   
-  def can_submit
+  def can_submit?
     self.start_date < self.end_date
   end
 
   def student_mark
     submission = submissions.where(student_id: student_id).first
-    submission.present? ? (submission.status == :finished ? submission.grade : submission.status) : "No submission"
+    submission.present? ? (submission.status == "Finished".to_sym ? submission.grade : submission.status) : "No submission".to_sym
   end
   
-  scope :assignments, lambda { where(work_type: "Assignment") }
-  scope :quizzes, lambda { where(work_type: "Quiz") }
+  scope :assignments, lambda { where(work_type: "Assignment".to_sym) }
+  scope :quizzes, lambda { where(work_type: "Quiz".to_sym) }
 end
