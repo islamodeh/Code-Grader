@@ -41,7 +41,7 @@ class Instructor::WorksController < Instructor::InstructorsController
     else
       flash[:danger] = work.errors.full_messages.join(", ")
     end
-    redirect_to instructor_course_path(course)
+    redirect_to instructor_course_works_path(course)
   end
   
   def destroy
@@ -49,7 +49,7 @@ class Instructor::WorksController < Instructor::InstructorsController
     work = course.works.find_by(id: params[:id])
     work.destroy
     flash["success"] = "#{work.work_type} deleted!"
-    redirect_to instructor_course_path(course)
+    redirect_to instructor_course_works_path(course)
   end
 
   private

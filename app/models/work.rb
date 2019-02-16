@@ -25,12 +25,12 @@ class Work < ApplicationRecord
   end
   
   def can_submit?
-    self.start_date < self.end_date
+    DateTime.now >= self.start_date && DateTime.now < self.end_date
   end
 
   def student_mark
     submission = submissions.where(student_id: student_id).first
-    submission.present? ? (submission.status == "Finished".to_sym ? submission.grade : submission.status) : "No submission".to_sym
+    submission.present? ? (submission.status == "Finished" ? submission.grade.to_s + "  %" : submission.status) : "No submission"
   end
   
   scope :assignments, lambda { where(work_type: "Assignment".to_sym) }

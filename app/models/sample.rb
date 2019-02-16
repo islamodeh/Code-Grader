@@ -5,4 +5,5 @@ class Sample < ApplicationRecord
 
   # before save, remove extra spaces and lines both from right and left of each sample!
   # for more accurcy
+  scope :sorted, lambda { order(created_at: :asc)}
 end
