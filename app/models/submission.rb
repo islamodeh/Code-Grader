@@ -11,7 +11,7 @@ class Submission < ApplicationRecord
     // your code goes here
     return 0;
   }"
-  belongs_to :student
+  belongs_to :userable, polymorphic: true
   belongs_to :work
   
   validates :code, :language, :status, presence: :true

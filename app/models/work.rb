@@ -29,8 +29,8 @@ class Work < ApplicationRecord
   end
 
   def student_mark
-    submission = submissions.where(student_id: student_id).first
-    submission.present? ? (submission.status == "Finished" ? submission.grade.to_s + "  %" : submission.status) : "No submission"
+    mark = submissions.where(userable_id: student_id, userable_type: "Student").maximum(:grade)
+    mark.present? ? mark : 0
   end
   
   scope :assignments, lambda { where(work_type: "Assignment".to_sym) }

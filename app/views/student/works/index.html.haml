@@ -33,7 +33,7 @@
     .col.overflow-wrap
       = client_zone_time(work.end_date)
     .col.overflow-wrap
-      = link_to "Submit new code", new_student_course_work_submission_path(@course.id,work.id), class: "btn btn-warning"
+      = link_to "Submissions", student_course_work_submissions_path(@course.id,work.id), class: "btn btn-warning"
       %br
       %br
   %hr

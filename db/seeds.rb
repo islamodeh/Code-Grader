@@ -12,16 +12,10 @@ course = instructor.courses.create!(name: "Network Forensics",
                                     description: "This course covers computer security and network forensics, forensic duplication and analysis, network surveillance, intrusion detection and prevention, incident response and trace-back. Signature and anomaly based intrusion detection, Pattern matching algorithms, Viruses, Trojans and worms detection. Multicast Fingerprinting, Anonymity and Pseudonym.")
 
 work = course.works.create!(
-  name: "Test" ,work_type: "assignment", description: "GG WP",
-  start_date: DateTime.now, end_date: DateTime.now + 1.hour
+  name: "Test" , work_type: "Assignment", description: "GG WP",
+  start_date: DateTime.now, end_date: DateTime.now + 1.month
   )
 
 work.samples.create!(input: "1 2", output: "3")
 
-student.enrollments.create(course_id: course.id, status: "accepted")
-
-student.submissions.create!(grade: 100,
-                            status: "accepted",
-                            work_id: work.id,
-                            code: "print 'test'",
-                            language: "python")
+student.enrollments.create(course_id: course.id, status: "Accepted")

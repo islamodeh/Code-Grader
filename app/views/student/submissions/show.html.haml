@@ -1,0 +1,10 @@
+.center
+  %h3
+    = "Your submission for #{@course.name} course / #{@work.work_type} #{@work.name} "
+  %h5
+    = text_area :submission, :code, class: "form-control code", disabled: :true
+    %br
+    = "Using #{@submission.language} language"
+    %br
+    %br
+    = link_to "Go back to submissions", student_course_work_submissions_path(@course.id, @work.id)

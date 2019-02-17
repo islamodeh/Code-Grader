@@ -3,6 +3,7 @@
   %br
   /instructor/courses/:course_id/works/:work_id/samples/new(
   = link_to "Add new sample", new_instructor_course_work_sample_path(@course.id, @work.id), class: "btn btn-success"
+  = link_to "My submissions", instructor_course_work_submissions_path(@course.id, @work.id), class: "btn btn-success"
   %br
   %br
   .row
