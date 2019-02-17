@@ -43,7 +43,14 @@ class Submission < ApplicationRecord
     solved = 0
     samples = self.work.samples
     samples.each do |sample|
+      output = 0
+      begin Timeout::timeout(2){
       output = run_command_in_container_as_user("cat .samples/#{sample.id} | ./a.out")
+      }
+      rescue Timeout::Error
+        self.update(status: "Timed out".to_sym, grade: 0)
+        return
+      end
       if output == sample.output
         solved += 1
       end
@@ -54,8 +61,8 @@ class Submission < ApplicationRecord
   
   def prepare_machine
     run_docker_command("rm -f submission_#{self.id}")
-    ##### disable internet, put a time limit, limit RAM #####
-    ##### make sure there is available memory left. status: pending #####
+    ##### disable internet, limit RAM #####
+    ##### make sure there is available memory left.
     run_docker_command("run -itd --name submission_#{self.id} vm")
     # copy source code
     file = Tempfile.new("submission_#{self.id}_")
@@ -86,14 +93,14 @@ class Submission < ApplicationRecord
   end
 
   def run_docker_command(command)
-    output = `docker #{command} 2>&1`
+    output = `docker #{command} 2>&1` # why not 2 > only!?
     if output.include? "Cannot connect to the Docker"
       raise output
     end
   end
   
   def run_command_in_container_as_root(command)
-    query = "docker exec -it submission_#{self.id} /bin/sh -c 'cd /home/code-grader; #{command}' 2>&1"
+    query = "docker exec -it submission_#{self.id} /bin/sh -c 'cd /home/code-grader; #{command}' 2>&1" # why not 2 > only!?
     output = `#{query}`
     if output.include?("Cannot connect to the Docker") || output.include?("Error response from daemon")
       raise output
