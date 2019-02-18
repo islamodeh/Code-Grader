@@ -24,14 +24,13 @@ class Instructor::SubmissionsController < Instructor::InstructorsController
     @course = current_instructor.courses.find_by(id: params[:course_id])
     @work = @course.works.find_by(id: params[:work_id])
     @submission = @work.submissions.new(userable: current_instructor,
-                                        status: "Pending",
+                                        status: "Pending".to_sym,
                                         code: params[:submission][:code],
                                         language: params[:submission][:language],
                                         grade: 0
                                        )
     if @submission.save
-      # RunCode.perform_async(@submission)
-      @submission.run_code
+      RunCode.perform_async(@submission)
       flash[:success] = "Code submitted successfuly. Please wait few seconds for the result"
     else
       flash[:danger] = @submission.errors.full_messages.join(", ")
