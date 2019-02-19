@@ -58,8 +58,8 @@ class RunCode < ActiveJob::Base
   ##### VIRTUAL MACHINE FUNCTIONS #####
 
   def prepare_machine
-    ##### make sure there is available memory left. ##### DO ME!
-    run_docker_command("run -itd --network none --memory=256m --memory-swap=256m --name submission_#{@submission.id} vm")
+    ##### make sure there is available memory & cpu left. ##### DO ME!
+    run_docker_command("run --cap-add=sys_nice -itd --network none --memory=256m --memory-swap=256m --name submission_#{@submission.id} vm")
 
     #copy the code
     file = Tempfile.new("submission_#{@submission.id}_")

@@ -32,13 +32,6 @@
           <li class="nav-item active">
             <%= link_to "Sign out", logout_path, method: :delete, class: "nav-link" %>
           </li>
-        <% else %>
-          <li class="nav-item active">
-            <%= link_to "Instructor", new_instructor_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Student", new_student_session_path, class: "nav-link" %>
-          </li>
         <% end %>
       </ul>
     </div>
