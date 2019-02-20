@@ -22,6 +22,10 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
+group :production do
+  gem 'unicorn'
+end
+
 group :development, :test do
   gem 'pry-rails', "~> 0.3.6" # debugger by calling binding.pry
 end
