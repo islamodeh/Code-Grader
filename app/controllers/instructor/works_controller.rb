@@ -17,6 +17,8 @@ class Instructor::WorksController < Instructor::InstructorsController
       flash[:success] = "#{work.work_type} created ! Please add at least 1 test sample so the students can submit their code!"
     else
       flash[:danger] = work.errors.full_messages.join(", ")
+      redirect_to  instructor_course_works_path(params[:course_id])
+      return
     end
 
     redirect_to instructor_course_work_samples_path(params[:course_id], work.id)

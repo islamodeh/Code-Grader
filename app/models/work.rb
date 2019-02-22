@@ -19,9 +19,8 @@ class Work < ApplicationRecord
   end
 
   def convert_date
-    offset = self.start_date.in_time_zone(self.zone_name).zone
-    self.start_date = self.start_date - Time.zone_offset(offset).seconds
-    self.end_date = self.end_date - Time.zone_offset(offset).seconds
+    self.start_date = self.start_date - TZInfo::Timezone.get(self.zone_name).current_period.offset.utc_total_offset
+    self.end_date = self.end_date - TZInfo::Timezone.get(self.zone_name).current_period.offset.utc_total_offset
   end
   
   def can_submit?
