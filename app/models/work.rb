@@ -3,7 +3,7 @@ class Work < ApplicationRecord
   attr_accessor :zone_name, :student_id
 
   has_many :samples, dependent: :destroy
-  has_many :submissions, as: :userable, dependent: :destroy
+  has_many :submissions, dependent: :destroy
   belongs_to :course
 
   validates :description, :work_type, :name,
