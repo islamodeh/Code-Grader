@@ -104,7 +104,7 @@ class RunCode < ActiveJob::Base
   end
   
   def run_command_in_container_as_root(command, skip_raise = false)
-    query = "docker exec -it submission_#{@submission.id} /bin/sh -c 'cd /home/code-grader; #{command}' 2>&1"
+    query = "docker exec -i submission_#{@submission.id} /bin/sh -c 'cd /home/code-grader; #{command}' 2>&1"
     output = `#{query}`
     output = output.downcase
     if output.include?("cannot connect to the docker") || output.include?("error") || output.include?("errors")
