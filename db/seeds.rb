@@ -5,8 +5,8 @@ student.save(validate: false)
 student.update_column(:confirmed_at, DateTime.now)
 
 instructor = Instructor.new(email: "islamodeh@hotmail.com",
-                            full_name: "code-grader-insturctor",
-                            password: "code-grader-insturctor")
+                            full_name: "code-grader-instructor",
+                            password: "code-grader-instructor")
 instructor.save(validate: false)
 instructor.update_column(:confirmed_at ,DateTime.now)
 
