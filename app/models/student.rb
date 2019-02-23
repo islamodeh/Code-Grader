@@ -2,12 +2,12 @@ class Student < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
-         # :confirmable
-  
+         :recoverable, :rememberable, :validatable, :trackable,
+         :confirmable
+  validate :check_student
+
   has_many :enrollments, dependent: :destroy
-  # has_many :courses, through: :enrollments
-  has_many :submissions, dependent: :destroy
+  has_many :submissions, as: :userable, dependent: :destroy
 
   def courses
     Course.where(id: enrollments.accepted.map(&:course_id))
@@ -15,5 +15,9 @@ class Student < ApplicationRecord
 
   def pending_courses
     Course.where(id: enrollments.pending.map(&:course_id))
+  end
+  
+  def check_student
+    errors.add(:email, "should include @std.psut.edu.jo") if !self.email.include?("@std.psut.edu.jo") 
   end
 end
