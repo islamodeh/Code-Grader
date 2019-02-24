@@ -59,14 +59,12 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   # credentials
-  # config.require_master_key = true
+  config.require_master_key = true
 
-  # Devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
+  address:              'smtp.sendgrid.net',
   port:                 587,
-  domain:               'gmail.com',
   user_name:            Rails.application.credentials.mail[:username],
   password:             Rails.application.credentials.mail[:password],
   authentication:       :plain,
