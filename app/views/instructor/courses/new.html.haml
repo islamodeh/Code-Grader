@@ -1,13 +1,13 @@
 .center
   = form_for [:instructor, @course] do |f|
     = f.label :course_name
-    = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "ex: Penetration testing"
+    = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "ex: Programming in C"
     %br
     = f.label :section
-    = f.text_field :section, autofocus: true, class: "form-control center", placeholder: "ex: 1"
+    = f.text_field :section, autofocus: true, class: "form-control center", placeholder: "ex: 11 - 12:30"
     %br
     = f.label :description
-    = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "a technical hacking course."
+    = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "Concepts of structured programming. Structured programming languages. Program design, development, running, and testing, and debugging programs. Syntax and semantics of the programming language C++. Basic elements of the language: variables, constants, and data types. Basic input/output functions. Conditional and iterative control structures. Concept of procedural programming, Top/down design. Structured decomposition. Functions and parameter passing. Recursive functions. Pointers and dynamic variables. Basic data structures: one and two-dimensional arrays, string manipulation, structures. Input / Output Files, Concepts of OOP and Classes."
     / add course year and semester..
     %br
     = f.submit "Create course!", class: "btn btn-success"

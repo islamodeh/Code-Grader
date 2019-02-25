@@ -1,15 +1,25 @@
-.center
+.container.center
+  %br
+  %br
+  %br
+  %br
+  %br
+  %h1
+    %b
+      = "Welcome to Code Grader"
+  %br
   %h3
-    = "Introduction.."
-  %br
-  %br
+    %b
+      = "Code Grader is an automated system for grading programming languages assignments/quizzes within few seconds, securely, and totally free!"
+      %br
+      %br
+  %h4
+    = "What are you waiting for ? Choose the type of user you're looking for and login"
   %br
   %h4
     .row
       .col
-        = link_to "Instructor", new_instructor_session_path, class: "btn btn-outline-info btn-lg  btn-block home-index-button"
+        = link_to "Instructor", new_instructor_session_path, class: "btn btn-outline-danger btn-lg  btn-block home-index-button"
+        %br
       .col
-        = link_to "Student", new_student_session_path, class: "btn btn-outline-info btn-lg  btn-block home-index-button"
-  %br
-  %br
-  %br
+        = link_to "Student", new_student_session_path, class: "btn btn-outline-danger btn-lg  btn-block home-index-button"

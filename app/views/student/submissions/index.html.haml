@@ -30,7 +30,7 @@
     .col.overflow-wrap
       = submission.status
     .col.overflow-wrap
-      = submission.created_at
+      = submission.created_at.to_s(:day_month_year_hour_minute)
     .col
       = link_to "Show code", student_course_work_submission_path(@course.id, @work.id, submission.id)
     %br

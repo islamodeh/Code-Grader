@@ -1,6 +1,6 @@
 .center
   %h3
-    = "Welcome " + (current_instructor.full_name.present? ? current_instructor.full_name : "Instructor") + ", What would you like to do for today ?"
+    = "Welcome " + (current_instructor.full_name.present? ? current_instructor.full_name : current_instructor.email) + ", What would you like to do for today ?"
   %br
   %br
   %br
@@ -11,11 +11,11 @@
       .col
         = link_to "View Courses", instructor_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
     %br
-    .row
-      .col
-        = link_to "Send a notification to a student", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-      .col
-        = link_to "Report a problem", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+    / .row
+    /   .col
+    /     = link_to "Send a notification to a student", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+    /   .col
+    /     = link_to "Report a problem", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
   %br
   %br
   %br

@@ -29,9 +29,9 @@
     .col.overflow-wrap
       = work.description
     .col.overflow-wrap
-      = client_zone_time(work.start_date)
+      = client_zone_time(work.start_date).to_s(:day_month_year_hour_minute)
     .col.overflow-wrap
-      = client_zone_time(work.end_date)
+      = client_zone_time(work.end_date).to_s(:day_month_year_hour_minute)
     .col.overflow-wrap
       = link_to "Submissions", student_course_work_submissions_path(@course.id,work.id), class: "btn btn-warning"
       %br

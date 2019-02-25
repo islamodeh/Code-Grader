@@ -1,10 +1,10 @@
 .center
   = form_for([:instructor, @course, @work]) do |f|
     = f.label :work_name
-    = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "ex: Assignment1"
+    = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "ex: Assignment 1"
     %br
     = f.label :description
-    = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "Chapter 1"
+    = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "ex: Write a code that reads 2 integers and print their summation."
     %br
     = f.label :work_type
     = f.select :work_type, Work::WORK_TYPE

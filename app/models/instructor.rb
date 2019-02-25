@@ -5,6 +5,7 @@ class Instructor < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable,
          :confirmable
   validate :check_instructor
+  validates :full_name, presence: true
 
   has_many :courses, dependent: :destroy
   has_many :submissions, dependent: :destroy, as: :userable
