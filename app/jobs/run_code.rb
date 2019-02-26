@@ -40,7 +40,6 @@ class RunCode < ActiveJob::Base
       begin Timeout::timeout(2){
       output = run_command_in_container_as_user("cat .samples/#{sample.id} | ./a.out")
       if output.downcase.include?("segmentation fault")
-        puts "Yes Bitch"
         @submission.update(status: "Memory limit exceeded".to_sym, grade: 0)
         return
       end
@@ -109,6 +108,9 @@ class RunCode < ActiveJob::Base
     output = output.downcase
     if output.include?("cannot connect to the docker") || output.include?("error") || output.include?("errors")
       skip_raise.present? ? (puts "LOG ME as user ERROR -> #{output}") : (raise output)
+    elsif output.include? "killed"
+      @submission.update(status: "Memory limit exceeded".to_sym, grade: 0)
+      raise("Container got killed!")
     else
       # LOG ME
       puts "--------------------------"
