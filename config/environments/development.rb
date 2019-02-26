@@ -63,9 +63,10 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.smtp_settings = {
-  address:              'smtp.sendgrid.net',
+  address:              'smtp.gmail.com',
   port:                 587,
-  user_name:            Rails.application.credentials.mail[:username],
+  domain:               "code-grader.com",
+  user_name:            Rails.application.credentials.mail[:email],
   password:             Rails.application.credentials.mail[:password],
   authentication:       :plain,
   enable_starttls_auto: true
