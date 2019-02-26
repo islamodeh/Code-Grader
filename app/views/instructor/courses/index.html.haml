@@ -13,10 +13,10 @@
       = "Currently enrolled students: #{course.enrolled_students.count} student"
       %br
       %br
-      = link_to "You have #{course.pending_students.count} enrollment requests", instructor_course_students_path(course.id), class: "btn btn-info" if course.pending_students.count.positive?
+      = link_to "You have #{course.pending_students.count} enrollment requests", students_instructor_course_path(course.id), class: "btn btn-info" if course.pending_students.count.positive?
     %br
-    = link_to "View Marks", "", class: "btn btn-outline-danger"
+    = link_to "View Grades", grades_instructor_course_path(course.id), class: "btn btn-outline-danger"
     = link_to "Works", instructor_course_works_path(course.id), class: "btn btn-outline-danger"
     = link_to "Edit course", edit_instructor_course_path(course.id), class: "btn btn-outline-danger"
-    = link_to "Students", instructor_course_students_path(course.id), class: "btn btn-outline-danger"
+    = link_to "Students", students_instructor_course_path(course.id), class: "btn btn-outline-danger"
     %hr

@@ -10,9 +10,9 @@
     %br
     %br
     %h6
-      = "Currently enrolled students: #{course.enrolled_students.count} student"
+      = "Grade: #{course.student_grade(current_student.id)} %"
       %br
     %br
     = link_to "Works", student_course_works_path(course.id), class: "btn btn-outline-danger"
-    / = link_to "View Mark", "", class: "btn btn-outline-danger"
+    / = link_to "View Grade", "", class: "btn btn-outline-danger"
     %hr

@@ -1,0 +1,24 @@
+.center
+  %h2
+    = "#{@course.name} Grades"
+    %br
+    %br
+  %h4="Students"
+  %hr
+  .row.center
+    .col
+      = "#"
+    .col.overflow-wrap
+      = "Grade"
+    .col.overflow-wrap
+      =''
+- @enrolled_students.each_with_index do |enrolled, index|
+  %br
+  .row.center
+    .col.overflow-wrap
+      = index + 1
+    .col.overflow-wrap
+      = enrolled.student.email
+    .col.overflow-wrap
+      = "#{@course.student_grade(enrolled.student.id)} %"
+  %hr

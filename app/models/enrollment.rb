@@ -6,9 +6,10 @@ class Enrollment < ApplicationRecord
     message: "%{value} is not a valid status" }
   scope :pending, lambda { where(status: "Pending")}
   scope :accepted, lambda { where(status: "Accepted")}
-  # after_destroy :remove_submissions!
 
-  # def remove_submissions!
-  #   Submission.where(student_id: self.student_id, work_id: self.course.works.map(&:id)).destroy_all
-  # end
+  after_destroy :remove_submissions!
+  
+  def remove_submissions!
+    Submission.where(userable: self.student, work_id: self.course.works.map(&:id)).destroy_all
+  end
 end

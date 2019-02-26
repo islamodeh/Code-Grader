@@ -11,7 +11,7 @@
     .col.overflow-wrap
       = "#"
     .col.overflow-wrap
-      = "Grade %"
+      = "Grade"
     .col.overflow-wrap
       = "Status"
     .col.overflow-wrap
@@ -26,7 +26,7 @@
     .col.overflow-wrap
       = index + 1
     .col.overflow-wrap
-      = submission.grade
+      = submission.grade.to_s + " %"
     .col.overflow-wrap
       = submission.status
     .col.overflow-wrap

@@ -25,7 +25,7 @@
         .col
           = course.section
         .col
-          = link_to "Cancel request", student_course_enroll_path(course.id, state: "unenroll"), method: :post, class: "btn btn-danger"
+          = link_to "Cancel request", enroll_student_course_path(course.id, state: "unenroll"), method: :post, class: "btn btn-danger"
       %hr
     %br
     %br
@@ -54,5 +54,5 @@
       .col
         = course.section
       .col
-        = link_to "Join course", student_course_enroll_path(course.id, state: "enroll"), method: :post, class: "btn btn-success"
+        = link_to "Join course", enroll_student_course_path(course.id, state: "enroll"), method: :post, class: "btn btn-success"
     %hr

@@ -40,6 +40,11 @@ body{
 a {
   color: white;
 }
+a:hover{
+  color: red;
+  text-decoration: none;
+}
+
 body.home.index {
   color: white;
   background-position: right 12px;

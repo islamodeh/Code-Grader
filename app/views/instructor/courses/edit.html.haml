@@ -10,4 +10,4 @@
     = f.text_area :description, class: "form-control center"
     %br
     = f.submit "Update!", class: "btn btn-success"
-    
+    = link_to "Delete course", instructor_course_path(@course.id), class: "btn btn-danger", data: { confirm: "This will remove all works, all student submissions and their grades. are you sure ?" }, method: :delete

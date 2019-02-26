@@ -28,12 +28,14 @@ Rails.application.routes.draw do
 
   namespace :instructor do
     get "/", to: "instructors#index"
-    resources :courses do
-      get "students", to: "students"
-      get "handle_enrollment", to: "handle_enrollment"
+    resources :courses, except: [:show] do
+      member do
+        get :students, :handle_enrollment, :grades
+      end
+
       resources :works do
-        resources :submissions
-        resources :samples
+        resources :submissions, except: [:edit, :update, :destroy]
+        resources :samples, except: [:edit, :show]
       end
     end
   end
@@ -42,11 +44,15 @@ Rails.application.routes.draw do
 
   namespace :student do
     get "/", to: "students#index"
-    get "/course/search", to: "courses#search"
     resources :courses do
-      post "enroll", to: "enroll"
-      resources :works do
-        resources :submissions
+      member do
+        post :enroll
+      end
+      collection do
+        get :search
+      end
+      resources :works, only: [:index] do
+        resources :submissions, except: [:edit, :update, :destroy]
       end
     end
   end

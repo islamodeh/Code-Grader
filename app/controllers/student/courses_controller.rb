@@ -11,7 +11,7 @@ class Student::CoursesController < Student::StudentsController
   end
   
   def enroll
-    enrollment = current_student.enrollments.where(course_id: params[:course_id]).first_or_create(status: "Pending")
+    enrollment = current_student.enrollments.where(course_id: params[:id]).first_or_create(status: "Pending")
     
     if params[:state] == "enroll"
       if enrollment.status == "Pending"
@@ -21,6 +21,6 @@ class Student::CoursesController < Student::StudentsController
       flash[:info] = "Requested cancelled to join #{enrollment.course.name}"
       enrollment.destroy
     end
-    redirect_to student_course_search_path
+    redirect_to search_student_courses_path
   end
 end

@@ -10,7 +10,7 @@
     .col.overflow-wrap
       = "Type"
     .col.overflow-wrap
-      = "#Mark"
+      = "Grade"
     .col.overflow-wrap
       = "Description"
     .col.overflow-wrap
@@ -25,7 +25,7 @@
     .col.overflow-wrap
       = work.work_type
     .col.overflow-wrap
-      = work.student_mark
+      = work.student_grade(current_student.id).to_s + " %"
     .col.overflow-wrap
       = work.description
     .col.overflow-wrap

@@ -20,4 +20,4 @@
     %br
     = f.submit "Update #{@work.work_type}", class: "btn btn-success"
     / DELETE /instructor/courses/:course_id/works/:id
-    = link_to "Delete #{@work.work_type}!", instructor_course_work_path(@course.id, @work.id), class: "btn btn-danger", data: { confirm: "This will remove all student submissions and marks, are you sure ?" }, method: :delete
+    = link_to "Delete #{@work.work_type}!", instructor_course_work_path(@course.id, @work.id), class: "btn btn-danger", data: { confirm: "This will remove all student submissions and grades, are you sure ?" }, method: :delete

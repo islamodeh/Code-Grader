@@ -10,7 +10,7 @@ class Instructor::CoursesController < Instructor::InstructorsController
 
   def create
     if (course = current_instructor.courses.create(params_require)) && course.valid?
-      flash[:success] = "Course created Succefully!"
+      flash[:success] = "Course created Succesfully!"
     else
       flash[:danger] = course.errors.full_messages.join(", ")
     end
@@ -31,8 +31,14 @@ class Instructor::CoursesController < Instructor::InstructorsController
     redirect_to(instructor_courses_path)
   end
   
+  def destroy
+    @course = current_instructor.courses.find_by(id: params[:id])
+    flash[:success] = "#{@course.name} deleted Succesfully!" if @course.destroy
+    redirect_to(instructor_courses_path)
+  end
+  
   def students
-    @course = current_instructor.courses.find_by(id: params[:course_id])
+    @course = current_instructor.courses.find_by(id: params[:id])
     @pending_students = @course.pending_students.includes(:student)
     @enrolled_students = @course.enrolled_students.includes(:student)
   end
@@ -54,7 +60,12 @@ class Instructor::CoursesController < Instructor::InstructorsController
         enrollment.destroy
       end
     end
-    redirect_to(instructor_course_students_path(course))
+    redirect_to(students_instructor_course_path(course))
+  end
+  
+  def grades
+    @course = current_instructor.courses.find_by(id: params[:id])
+    @enrolled_students = @course.enrolled_students.includes(:student)
   end
 
   private

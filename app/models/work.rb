@@ -1,6 +1,6 @@
 class Work < ApplicationRecord
   WORK_TYPE = %w(Quiz Assignment)
-  attr_accessor :zone_name, :student_id
+  attr_accessor :zone_name
 
   has_many :samples, dependent: :destroy
   has_many :submissions, dependent: :destroy
@@ -27,9 +27,9 @@ class Work < ApplicationRecord
     DateTime.now >= self.start_date && DateTime.now < self.end_date
   end
 
-  def student_mark
-    mark = submissions.where(userable_id: student_id, userable_type: "Student").maximum(:grade)
-    mark.present? ? mark : 0
+  def student_grade(student_id)
+    grade = submissions.where(userable_id: student_id, userable_type: "Student").maximum(:grade)
+    grade.present? ? grade : 0
   end
   
   scope :assignments, lambda { where(work_type: "Assignment".to_sym) }
