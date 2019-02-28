@@ -4,7 +4,8 @@ class Submission < ApplicationRecord
               "Running",
               "Finished",
               "Timed out",
-              "Memory limit exceeded"
+              "Memory limit exceeded",
+              "Cheated"
               ]
   LANGUAGES = %w(C C++)
   C_EX = "#include <stdio.h>
@@ -14,13 +15,14 @@ class Submission < ApplicationRecord
   }"
   belongs_to :userable, polymorphic: true
   belongs_to :work
-  
+  has_many :cheat_logs, dependent: :destroy
+
   validates :code, :language, :status, presence: :true
   validates :status, inclusion: { in: STATUSES }
   validates :language, inclusion: { in: LANGUAGES }
+  validate lambda { errors.add(:submission, "is closed!") if (!self.work.can_submit? && self.userable_type != "Instructor") }
 
-  validate lambda { errors.add(:submission, "is closed!") if (!self.work.can_submit? && self.userable_type != "Instructor")}
-  validate lambda { errors.add(:cheating, "is not a good idea ...") if (self.userable_type == "Student" && cheating?) }
+  before_destroy lambda { CheatLog.where(cheated_from_submission_id: self.id).destroy_all }
 
   def get_grade(solved)
     samples = self.work.samples
@@ -41,18 +43,24 @@ class Submission < ApplicationRecord
       other_students_submissions = Submission.where(work_id: self.work_id, language: self.language, userable_type: "Student").where.not(userable: self.userable).includes(:userable)
 
       other_students_submissions.each do |submission|
-        File.open("#{dir_path}/#{submission.userable.email}_submission_id_#{submission.id}.txt", 'wb') do |file|
+        File.open("#{dir_path}/user_id?#{submission.userable.id},submission_id?#{submission.id}.txt", 'wb') do |file|
           file.write(submission.code)
         end
       end
+
       results = `./sherlock -e ".txt" -z 0 #{dir_path}`.gsub("#{dir_path}/","").gsub(";"," ")
       results = results.split("\n").map{ |line| line if line.include?("current_submission") }.compact
-
+      puts results
       results.each do |result|
-        percentage = result.split(" ")[2].gsub("%", "").to_i
-        if percentage >= 20
+        result = result.split(" ")
+        result.delete("current_submission.txt")
+        cheat_percentage = result[1].gsub("%", "").to_i
+        info =  result[0].gsub(".txt", "").split(",")
+        cheated_from_submission_id = (info[1].split("?")[1]).to_i
+        cheat_log = CheatLog.new(submission_id: self.id, cheated_from_submission_id: cheated_from_submission_id, cheat_percentage: cheat_percentage)
+        cheat_log.save
+        if cheat_percentage >= 20
           cheat_flag = true
-          break
         end
       end
     ensure

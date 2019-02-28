@@ -9,6 +9,7 @@ class Enrollment < ApplicationRecord
 
   after_destroy :remove_submissions!
   
+  # Remove user submissions to all works in the current works.
   def remove_submissions!
     Submission.where(userable: self.student, work_id: self.course.works.map(&:id)).destroy_all
   end

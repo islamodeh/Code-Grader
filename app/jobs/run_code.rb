@@ -10,6 +10,11 @@ class RunCode < ActiveJob::Base
   private
 
   def run_code
+    if @submission.cheating?
+      @submission.update(grade: 0, status: "Cheated")
+      return
+    end
+
     begin
       prepare_machine()
       case @submission.language
