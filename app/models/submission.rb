@@ -40,7 +40,7 @@ class Submission < ApplicationRecord
         file.write(self.code)
       end
 
-      other_students_submissions = Submission.where(work_id: self.work_id, language: self.language, userable_type: "Student").where.not(userable: self.userable).includes(:userable)
+      other_students_submissions = Submission.where(work_id: self.work_id, language: self.language, userable_type: "Student").where.not(userable: self.userable, status: "Cheated").includes(:userable)
 
       other_students_submissions.each do |submission|
         File.open("#{dir_path}/user_id?#{submission.userable.id},submission_id?#{submission.id}.txt", 'wb') do |file|
