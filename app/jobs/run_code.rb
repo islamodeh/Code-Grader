@@ -10,7 +10,7 @@ class RunCode < ActiveJob::Base
   private
 
   def run_code
-    if @submission.cheating?
+    if @submission.userable_type != "Instructor" && @submission.cheating?
       @submission.update(grade: 0, status: "Cheated")
       return
     end
