@@ -40,8 +40,9 @@
   </nav>
   
   <br>
-  <body class="<%= controller_name%> <%= action_name %>">
+  <body class="<%= controller_name %> <%= action_name %>">
     <div class="container">
+      <%= back_button %>
       <% flash.each do |key, value| %>
         <!-- for devise -->
         <% if key === "alert" %>
