@@ -5,4 +5,7 @@ class HomeController < ApplicationController
       return
     end
   end
+
+  def help
+  end
 end

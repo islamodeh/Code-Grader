@@ -14,11 +14,11 @@ class Student::SubmissionsController < Student::StudentsController
     @submission = @work.submissions.new(userable: current_student, code: code, language: language)
   end
   
-  def show
-    @course = current_student.courses.find_by(id: params[:course_id])
-    @work = @course.works.find_by(id: params[:work_id])
-    @submission = @work.submissions.where(id: params[:id]).first
-  end
+  # def show
+  #   @course = current_student.courses.find_by(id: params[:course_id])
+  #   @work = @course.works.find_by(id: params[:work_id])
+  #   @submission = @work.submissions.where(id: params[:id], userable: current_student).first
+  # end
   
   def create
     @course = current_student.courses.find_by(id: params[:course_id])

@@ -1,0 +1,12 @@
+.modal.fade{id: "submission_#{submission.id}", style: "display: none;", role: "dialog", aria: {labelledby: "Student Submission"}}
+  .modal-dialog{role: "document"}
+    .modal-content
+      .modal-header
+        %h4.modal-title= "Submission: #{submission.id}, Language: #{submission.language}"
+
+      .modal-body
+        .container-fluid
+          = text_area_tag :student_code, submission.code, style: 'width: 100%; height: 550px !important;', disabled: true
+      .modal-footer
+        %button.btn.btn-danger{data: {dismiss: "modal"}}
+          Close

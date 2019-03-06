@@ -6,19 +6,25 @@
   %h4="Students"
   %hr
   .row.center
-    .col
+    .col.overflow-wrap
       = "#"
     .col.overflow-wrap
       = "Email"
+    - @works.each do |work|
+      .col.overflow-wrap
+        = " #{work.name} %"
     .col.overflow-wrap
-      = "Grade"
-- @enrolled_students.each_with_index do |enrolled, index|
+      = "Total %"
+- @enrolled_students.each_with_index do |enrollment, index|
   %br
   .row.center
     .col.overflow-wrap
       = index + 1
     .col.overflow-wrap
-      = enrolled.student.email
+      = enrollment.student.email
+    - @works.each do |work|
+      .col.overflow-wrap
+        = link_to work.student_grade(enrollment.student.id), instructor_course_work_student_submissions_path(@course.id, work.id, enrollment.student.id), title: "View #{enrollment.student.email} submissions for work #{work.name}", class: "btn btn-outline-warning"
     .col.overflow-wrap
-      = "#{@course.student_grade(enrolled.student.id)} %"
+      = @course.student_grade(enrollment.student.id)
   %hr

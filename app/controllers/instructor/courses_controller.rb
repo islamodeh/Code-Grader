@@ -65,6 +65,7 @@ class Instructor::CoursesController < Instructor::InstructorsController
   
   def grades
     @course = current_instructor.courses.find_by(id: params[:id])
+    @works = @course.works.order(created_at: :asc).includes(:submissions)
     @enrolled_students = @course.enrolled_students.includes(:student)
   end
 

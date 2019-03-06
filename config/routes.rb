@@ -34,7 +34,8 @@ Rails.application.routes.draw do
       end
 
       resources :works do
-        resources :submissions, except: [:edit, :update, :destroy]
+        get "student_submissions/:id", to: "works#student_submissions", as: "student_submissions"
+        resources :submissions, except: [:edit, :update, :destroy, :show]
         resources :samples, except: [:edit, :show]
       end
     end
@@ -52,10 +53,11 @@ Rails.application.routes.draw do
         get :search
       end
       resources :works, only: [:index] do
-        resources :submissions, except: [:edit, :update, :destroy]
+        resources :submissions, except: [:edit, :update, :destroy, :show]
       end
     end
   end
 
+  get "/help", to: "home#help"
   root "home#index"
 end

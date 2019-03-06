@@ -23,6 +23,9 @@
           <%= link_to "Home", current_user.present? ? profile_path : root_path, class: "nav-link" %>
         </li>
         <%= current_user_navbar_functions %>
+        <li class="nav-item active">
+          <%= link_to "Help", help_path, class: "nav-link" %>
+        </li>
       </ul>
 
       <ul class="navbar-nav">
@@ -38,24 +41,28 @@
       </ul>
     </div>
   </nav>
-  
+
   <br>
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="container">
+    <div class="container-fluid ">
       <%= back_button %>
-      <% flash.each do |key, value| %>
-        <!-- for devise -->
-        <% if key === "alert" %>
-          <% key = "danger" %>
-        <% elsif key === "notice" %>
-          <% key = "success" %>
+      <br>
+      <br>
+      <div class="center">
+        <% flash.each do |key, value| %>
+          <!-- for devise -->
+          <% if key === "alert" %>
+            <% key = "danger" %>
+          <% elsif key === "notice" %>
+            <% key = "success" %>
+          <% end %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
         <% end %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
-      <hr>
-      <br>
-      <br>
-      <%= yield %>
+        <hr>
+        <br>
+        <br>
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
