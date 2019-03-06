@@ -10,7 +10,7 @@
 }
 
 .home-index-button {
-  height: 150px;
+  height: 100px;
   width: 540px;
   display: table-cell;
   font-size: 60px;
@@ -28,11 +28,11 @@
 
 .overflow-wrap{
   overflow-wrap: break-word;
-  width:190px;
+  width:100px;
 }
 
 .code {
-  height: 550px !important;
+  height: 350px !important;
 }
 
 body{
@@ -51,7 +51,7 @@ a:hover{
 
 body.home.index {
   color: white;
-  background-position: right 12px;
+  background-position: right 25px;
   background-repeat: no-repeat;
   background-image: url("homepage.png");
   background-size: 100%;

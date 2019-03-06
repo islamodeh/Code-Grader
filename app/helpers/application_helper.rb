@@ -23,7 +23,7 @@ module ApplicationHelper
         link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
       end
     when "home"
-        ""
+        action_name == "index" ? "" : (link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning")
     else
       link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
     end
