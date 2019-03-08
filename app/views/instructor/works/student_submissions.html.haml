@@ -1,0 +1,25 @@
+%h3
+  = "Student #{@student.email} submissions on #{@work.name} #{@work.work_type}"
+%br
+.row
+  .col
+    = "Submission id"
+  .col
+    = "Status"
+  .col
+    = "Grade %"
+  .col
+    = ""
+- @std_submissions.each_with_index do |submission, index|
+  %hr
+  .row
+    .col
+      = "#{submission.id}"
+    .col
+      = "#{submission.status}"
+    .col
+      = "#{submission.grade}"
+    .col
+      = link_to "Show Code", "#submission_#{submission.id}", { 'data-toggle' =>  "modal", class: 'btn btn-outline-warning' }
+      = render "shared/submission", submission: submission
+  %br

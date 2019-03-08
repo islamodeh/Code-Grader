@@ -32,6 +32,8 @@
     .col.overflow-wrap
       = submission.created_at.to_s(:day_month_year_hour_minute)
     .col
-      = link_to "Show code", instructor_course_work_submission_path(@course.id, @work.id, submission.id)
+      = link_to "Show Code", "#submission_#{submission.id}", { 'data-toggle' =>  "modal", class: 'btn btn-outline-warning' }
+      = render "shared/submission", submission: submission
+    %br
     %br
   %hr

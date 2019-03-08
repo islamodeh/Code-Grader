@@ -15,7 +15,20 @@ module ApplicationHelper
       destroy_student_session_path
     end
   end
-
+  
+  def back_button
+    case controller_name
+    when "instructors", "students"
+      if action_name != "index"
+        link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
+      end
+    when "home"
+        action_name == "index" ? "" : (link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning")
+    else
+      link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
+    end
+  end
+  
   def profile_path
     case current_user.class.name
     when "Instructor"

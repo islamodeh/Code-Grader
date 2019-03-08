@@ -6,40 +6,44 @@
 }
 
 .instructor-index-button {
-  height: 180px;
-  width: 540px;
-  display: table-cell;
   font-size: 30px;
 }
+
 .home-index-button {
-  height: 200px;
+  height: 100px;
   width: 540px;
   display: table-cell;
   font-size: 60px;
 }
+
 .course {
   height: 200px;
   width: 540px;
   font-size: 30px;
 }
+
 .show_zone_name {
   color:red;
 }
+
 .overflow-wrap{
   overflow-wrap: break-word;
-  width:190px;
+  width:100px;
 }
+
 .code {
-  height: 550px !important;
+  height: 350px !important;
 }
 
 body{
   color: white;
   background-color: #000000b8;
 }
+
 a {
   color: white;
 }
+
 a:hover{
   color: red;
   text-decoration: none;
@@ -47,8 +51,22 @@ a:hover{
 
 body.home.index {
   color: white;
-  background-position: right 12px;
+  background-position: right 25px;
   background-repeat: no-repeat;
   background-image: url("homepage.png");
   background-size: 100%;
+}
+
+.form-control {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.modal-header {
+  background-color: black;
+  color: white;
+}
+
+.modal-backdrop {
+  background-color: black;
 }

@@ -53,7 +53,15 @@ class Instructor::WorksController < Instructor::InstructorsController
     flash["success"] = "#{work.work_type} deleted!"
     redirect_to instructor_course_works_path(course)
   end
+  
+  def student_submissions
+    course = current_instructor.courses.find_by(id: params[:course_id])
+    @work = course.works.find_by(id: params[:work_id])
+    @student = Student.find_by(id: params[:id])
 
+    @std_submissions = @work.submissions.where(userable: @student).where.not(status: "Cheated").order(created_at: :desc)
+  end
+  
   private
   def params_require
     params.require(:work).permit(:name, :work_type, :description, :start_date, :end_date)
