@@ -36,3 +36,5 @@
 
 # ignore unicorn logs
 /shared
+# ignore sherlock bin
+sherlock

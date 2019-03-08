@@ -4,7 +4,8 @@ class Submission < ApplicationRecord
               "Running",
               "Finished",
               "Timed out",
-              "Memory limit exceeded"
+              "Memory limit exceeded",
+              "Cheated"
               ]
   LANGUAGES = %w(C C++)
   C_EX = "#include <stdio.h>
@@ -14,13 +15,58 @@ class Submission < ApplicationRecord
   }"
   belongs_to :userable, polymorphic: true
   belongs_to :work
-  
+  has_many :cheat_logs, dependent: :destroy
+
   validates :code, :language, :status, presence: :true
   validates :status, inclusion: { in: STATUSES }
-  validate lambda { errors.add(:submission, "is closed!") if !self.work.can_submit? }
-  
+  validates :language, inclusion: { in: LANGUAGES }
+  validate lambda { errors.add(:submission, "is closed!") if (!self.work.can_submit? && self.userable_type != "Instructor") }
+
+  before_destroy lambda { CheatLog.where(cheated_from_submission_id: self.id).destroy_all }
+
   def get_grade(solved)
     samples = self.work.samples
     samples.count == 0 ? 0 : (( (solved.to_f / samples.count) * 100).ceil)
+  end
+
+  def cheating?
+    cheat_flag = false
+    dir_name = "#{self.userable_type.to_s.downcase}_self.userable_id_#{SecureRandom.urlsafe_base64}"
+    dir_path = File.join(Rails.root, 'tmp', dir_name)
+
+    begin
+      Dir.mkdir(dir_path)
+      File.open("#{dir_path}/current_submission.txt", 'wb') do |file|
+        file.write(self.code)
+      end
+
+      other_students_submissions = Submission.where(work_id: self.work_id, language: self.language, userable_type: "Student").where.not(userable: self.userable, status: "Cheated").includes(:userable)
+
+      other_students_submissions.each do |submission|
+        File.open("#{dir_path}/user_id?#{submission.userable.id},submission_id?#{submission.id}.txt", 'wb') do |file|
+          file.write(submission.code)
+        end
+      end
+
+      results = `./sherlock -e ".txt" -z 0 #{dir_path}`.gsub("#{dir_path}/","").gsub(";"," ")
+      results = results.split("\n").map{ |line| line if line.include?("current_submission") }.compact
+      puts results
+      results.each do |result|
+        result = result.split(" ")
+        result.delete("current_submission.txt")
+        cheat_percentage = result[1].gsub("%", "").to_i
+        info =  result[0].gsub(".txt", "").split(",")
+        cheated_from_submission_id = (info[1].split("?")[1]).to_i
+        cheat_log = CheatLog.new(submission_id: self.id, cheated_from_submission_id: cheated_from_submission_id, cheat_percentage: cheat_percentage)
+        cheat_log.save
+        if cheat_percentage >= 20
+          cheat_flag = true
+        end
+      end
+    ensure
+      FileUtils.remove_dir(dir_path, true)
+    end
+
+    cheat_flag
   end
 end
