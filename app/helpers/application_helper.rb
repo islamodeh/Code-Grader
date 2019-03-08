@@ -6,7 +6,7 @@ module ApplicationHelper
       current_student
     end
   end
-  
+
   def logout_path
     case current_user.class.name
     when "Instructor"
@@ -15,20 +15,20 @@ module ApplicationHelper
       destroy_student_session_path
     end
   end
-  
+
   def back_button
     case controller_name
     when "instructors", "students"
       if action_name != "index"
-        link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
+        link_to("<<", "javascript:history.go(-1);", class: "btn btn-warning")
       end
     when "home"
-        action_name == "index" ? "" : (link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning")
+      (action_name == "index") ? "" : link_to("<<", "javascript:history.go(-1);", class: "btn btn-warning")
     else
-      link_to '<<', 'javascript:history.go(-1);', class: "btn btn-warning"
+      link_to("<<", "javascript:history.go(-1);", class: "btn btn-warning")
     end
   end
-  
+
   def profile_path
     case current_user.class.name
     when "Instructor"
@@ -50,13 +50,9 @@ module ApplicationHelper
   def current_user_navbar_functions
     case current_user.class.name
     when "Instructor"
-    ("<li class='nav-item active'>" + 
-      (link_to "My Courses", instructor_courses_path, class: "nav-link") +
-     "</li>").html_safe
+      ("<li class='nav-item active'>" + link_to("My Courses", instructor_courses_path, class: "nav-link") + "</li>").html_safe
     when "Student"
-    ("<li class='nav-item active'>" + 
-      (link_to "My Courses", student_courses_path, class: "nav-link") +
-     "</li>").html_safe
+      ("<li class='nav-item active'>" + link_to("My Courses", student_courses_path, class: "nav-link") + "</li>").html_safe
     end
   end
 
@@ -64,7 +60,7 @@ module ApplicationHelper
     # Should use client zone name using his ip address w/ controller.
     "Asia/Amman"
   end
-  
+
   def client_zone_time(time)
     time.in_time_zone(client_zone_name)
   end

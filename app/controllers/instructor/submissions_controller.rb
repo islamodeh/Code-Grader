@@ -13,13 +13,13 @@ class Instructor::SubmissionsController < Instructor::InstructorsController
     language = last_submission.present? ? last_submission.language : "C"
     @submission = @work.submissions.new(userable: current_instructor, code: code, language: language)
   end
-  
+
   # def show
   #   @course = current_instructor.courses.find_by(id: params[:course_id])
   #   @work = @course.works.find_by(id: params[:work_id])
   #   @submission = @work.submissions.where(id: params[:id], userable: current_instructor).first
   # end
-  
+
   def create
     @course = current_instructor.courses.find_by(id: params[:course_id])
     @work = @course.works.find_by(id: params[:work_id])
@@ -27,15 +27,13 @@ class Instructor::SubmissionsController < Instructor::InstructorsController
                                         status: "Pending".to_sym,
                                         code: params[:submission][:code],
                                         language: params[:submission][:language],
-                                        grade: 0
-                                       )
+                                        grade: 0)
     if @submission.save
       RunCode.perform_async(@submission)
       flash[:success] = "Code submitted successfuly. Please wait few seconds for the result"
     else
       flash[:danger] = @submission.errors.full_messages.join(", ")
     end
-    redirect_to instructor_course_work_submissions_path(@course.id, @work.id)
+    redirect_to(instructor_course_work_submissions_path(@course.id, @work.id))
   end
-
 end
