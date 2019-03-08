@@ -297,7 +297,7 @@ Layout/FirstParameterIndentation:
   Description: 'Checks the indentation of the first parameter in a method call.'
   Enabled: true
 
-Style/FlipFlop:
+Lint/FlipFlop:
   Description: 'Checks for flip flops'
   StyleGuide: '#no-flip-flops'
   Enabled: true
@@ -1019,6 +1019,9 @@ Metrics/MethodLength:
 Metrics/BlockLength:
   Description: 'Avoid long blocks with many lines.'
   Enabled: true
+  Exclude:
+    - "config/environments/*"
+    - "config/routes.rb"
 
 Metrics/ParameterLists:
   Description: 'Avoid parameter lists longer than three or four parameters.'

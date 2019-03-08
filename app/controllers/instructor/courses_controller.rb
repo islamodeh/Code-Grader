@@ -1,5 +1,4 @@
 class Instructor::CoursesController < Instructor::InstructorsController
-  
   def index
     @courses = current_instructor.courses
   end
@@ -16,11 +15,11 @@ class Instructor::CoursesController < Instructor::InstructorsController
     end
     redirect_to(instructor_courses_path)
   end
-  
+
   def edit
     @course = current_instructor.courses.find_by(id: params[:id])
   end
-  
+
   def update
     @course = current_instructor.courses.find_by(id: params[:id])
     if @course.present? && @course.update(params_require)
@@ -30,13 +29,13 @@ class Instructor::CoursesController < Instructor::InstructorsController
     end
     redirect_to(instructor_courses_path)
   end
-  
+
   def destroy
     @course = current_instructor.courses.find_by(id: params[:id])
     flash[:success] = "#{@course.name} deleted Succesfully!" if @course.destroy
     redirect_to(instructor_courses_path)
   end
-  
+
   def students
     @course = current_instructor.courses.find_by(id: params[:id])
     @pending_students = @course.pending_students.includes(:student)
@@ -54,15 +53,13 @@ class Instructor::CoursesController < Instructor::InstructorsController
         flash[:danger] = "Declined student request"
         enrollment.destroy
       end
-    else
-      if params[:status] == "Kick"
-        flash[:danger] = "Kicked student from course"
-        enrollment.destroy
-      end
+    elsif params[:status] == "Kick"
+      flash[:danger] = "Kicked student from course"
+      enrollment.destroy
     end
     redirect_to(students_instructor_course_path(course))
   end
-  
+
   def grades
     @course = current_instructor.courses.find_by(id: params[:id])
     @works = @course.works.order(created_at: :asc).includes(:submissions)
@@ -70,6 +67,7 @@ class Instructor::CoursesController < Instructor::InstructorsController
   end
 
   private
+
   def params_require
     params.require(:course).permit(:name, :section, :description)
   end

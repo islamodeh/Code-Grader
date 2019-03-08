@@ -17,8 +17,8 @@ class Student < ApplicationRecord
   def pending_courses
     Course.where(id: enrollments.pending.map(&:course_id))
   end
-  
+
   def check_student
-    errors.add(:email, "should include @std.psut.edu.jo") if !self.email.include?("@std.psut.edu.jo") 
+    errors.add(:email, "should include @std.psut.edu.jo") if !email.include?("@std.psut.edu.jo")
   end
 end

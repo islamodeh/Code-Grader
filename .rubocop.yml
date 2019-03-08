@@ -94,7 +94,7 @@ Style/Documentation:
     - 'test/**/*'
 
 Metrics/LineLength:
-  Max: 125
+  Max: 150
   # To make it possible to copy or click on URIs in the code, we allow lines
   # containing a URI to be longer than Max.
   AllowHeredoc: true

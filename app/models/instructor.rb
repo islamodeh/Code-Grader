@@ -9,8 +9,8 @@ class Instructor < ApplicationRecord
 
   has_many :courses, dependent: :destroy
   has_many :submissions, dependent: :destroy, as: :userable
-  
+
   def check_instructor
-    errors.add(:email, "should include @psut.edu.jo") if !self.email.include?("@psut.edu.jo") 
+    errors.add(:email, "should include @psut.edu.jo") if !email.include?("@psut.edu.jo")
   end
 end

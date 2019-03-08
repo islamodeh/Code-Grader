@@ -7,10 +7,10 @@ class Sample < ApplicationRecord
   # for more accurcy
   before_save :remove_unwanted_characters
 
-  scope :sorted, lambda { order(created_at: :asc)}
-  
+  scope :sorted, -> { order(created_at: :asc) }
+
   def remove_unwanted_characters
-    self.input = self.input.gsub("\r", "")
-    self.output = self.output.gsub("\r", "")
+    self.input = input.gsub("\r", "")
+    self.output = output.gsub("\r", "")
   end
 end
