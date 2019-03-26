@@ -30,7 +30,7 @@
     .col.overflow-wrap
       = submission.status
     .col.overflow-wrap
-      = submission.created_at.to_s(:day_month_year_hour_minute)
+      = client_zone_time(submission.created_at).to_s(:day_month_year_hour_minute)
     .col
       = link_to "Show Code", "#submission_#{submission.id}", { 'data-toggle' =>  "modal", class: 'btn btn-outline-warning' }
       = render "shared/submission", submission: submission
