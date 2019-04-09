@@ -1,6 +1,8 @@
 .center
   %h3
     = "Add a new submission for #{@course.name} course / #{@work.work_type} #{@work.name} "
+  %h5.red
+    = "* Please make sure that your code doesn't print extra spaces or new lines!!"
   %h5
     = form_for [:student, :course, :work, @submission] do |f|
       = f.text_area :code, class: "form-control code", value: @submission.code

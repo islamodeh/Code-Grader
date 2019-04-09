@@ -30,7 +30,7 @@
 
       <ul class="navbar-nav">
         <% if current_user.present? %>
-          <img src="/assets/image.jpg" width="35" height="35" alt="" class="rounded-circle profile-icon">
+          <!-- <img src="/assets/image.jpg" width="35" height="35" alt="" class="rounded-circle profile-icon"> -->
           <li class="nav-item active">
             <%= link_to current_user.email, edit_path, class: "nav-link" %>
           </li>

@@ -6,10 +6,10 @@
   = form_for [:instructor, :course, :work, @sample] do |f|
     %h3= "Input sample"
     %br
-    = f.text_area :input, class: "form-control", placeholder: "1 2"
+    = f.text_area :input, class: "form-control enable-resize", placeholder: "1 2"
     %br
     %h3= "Expected output sample"
-    = f.text_area :output, class: "form-control", placeholder: "3"
+    = f.text_area :output, class: "form-control enable-resize", placeholder: "3"
     %br
     %br
     = f.submit "Create sample", class: "btn btn-success"
