@@ -22,6 +22,10 @@
   font-size: 30px;
 }
 
+.red {
+  color: red;
+}
+
 .show_zone_name {
   color:red;
 }
@@ -31,8 +35,33 @@
   width:100px;
 }
 
+.overflow-x {
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
 .code {
-  height: 350px !important;
+  height: 450px !important;
+  resize: both;
+}
+
+.enable-resize {
+  overflow: auto;
+  resize: both;
+}
+
+.form-control {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.modal-header {
+  background-color: black;
+  color: white;
+}
+
+.modal-backdrop {
+  background-color: black;
 }
 
 body{
@@ -57,16 +86,3 @@ body.home.index {
   background-size: 100%;
 }
 
-.form-control {
-  width: 40%;
-  margin: 0 auto;
-}
-
-.modal-header {
-  background-color: black;
-  color: white;
-}
-
-.modal-backdrop {
-  background-color: black;
-}
