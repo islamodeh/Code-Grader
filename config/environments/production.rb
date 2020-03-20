@@ -96,8 +96,8 @@ Rails.application.configure do
   address:              "smtp.gmail.com",
   port:                 587,
   domain:               "code-grader.com",
-  user_name:            Rails.application.credentials.mail[:email],
-  password:             Rails.application.credentials.mail[:password],
+  user_name:            Rails.application.credentials[Rails.env.to_sym][:email],
+  password:             Rails.application.credentials[Rails.env.to_sym][:email_password],
   authentication:       :plain,
   enable_starttls_auto: true
   }
