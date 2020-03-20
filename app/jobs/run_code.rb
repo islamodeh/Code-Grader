@@ -21,6 +21,8 @@ class RunCode < ActiveJob::Base
       when "C", "C++"
         run_c
       end
+    rescue => e
+      @submission.update_column(:status, "Fatal Error")
     ensure
       remove_machine
     end

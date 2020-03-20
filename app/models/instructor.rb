@@ -4,7 +4,7 @@ class Instructor < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable,
          :confirmable
-  validate :check_instructor
+  # validate :check_instructor
   # validates :full_name, presence: true
 
   has_many :courses, dependent: :destroy

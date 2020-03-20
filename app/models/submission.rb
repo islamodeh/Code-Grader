@@ -1,17 +1,20 @@
 class Submission < ApplicationRecord
   STATUSES = ["Pending",
+              "Fatal Error",
               "Compilation Failed",
               "Running",
               "Finished",
               "Timed out",
               "Memory limit exceeded",
               "Cheated"].freeze
+
   LANGUAGES = %w[C C++].freeze
   C_EX = "#include <stdio.h>
   int main(void) {
     // your code goes here
     return 0;
   }".freeze
+
   belongs_to :userable, polymorphic: true
   belongs_to :work
   has_many :cheat_logs, dependent: :destroy
