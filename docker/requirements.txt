@@ -1,3 +1,1 @@
-apt-get update -y
-apt-get upgrade -y
-apt-get install htop gcc g++ -y
+apt-get update -y; apt-get upgrade -y; apt-get install htop gcc g++ -y;

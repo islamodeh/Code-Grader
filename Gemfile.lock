@@ -71,7 +71,11 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    docker-api (1.34.2)
+      excon (>= 0.47.0)
+      multi_json
     erubi (1.8.0)
+    excon (0.73.0)
     execjs (2.7.0)
     ffi (1.9.25)
     globalid (0.4.2)
@@ -238,6 +242,7 @@ DEPENDENCIES
   bootstrap (~> 4.2.1)
   coffee-rails (~> 4.2)
   devise
+  docker-api
   haml
   jbuilder (~> 2.5)
   jquery-rails
