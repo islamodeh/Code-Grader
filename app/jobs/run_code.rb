@@ -4,129 +4,66 @@ class RunCode < ActiveJob::Base
 
   def perform(submission)
     @submission = submission
-    run_code
+    @dir_path = "/"
+    @file_path = @dir_path + "source#{@submission.extension}"
+    run_code!
   end
 
   private
 
-  def run_code
-    if @submission.userable_type != "Instructor" && @submission.cheating?
-      @submission.update(grade: 0, status: "Cheated")
-      return
-    end
+  def run_code!
+    # if @submission.userable_type != "Instructor" && @submission.cheating?
+    #   @submission.update(grade: 0, status: "Cheated")
+    #   return
+    # end
 
     begin
-      prepare_machine
+      @docker_container = @submission.create_container!
+      @docker_container.start
+      @docker_container.store_file(@file_path, @submission.code)
+
       case @submission.language
-      when "C", "C++"
+      when "c", "c++"
         run_c
+      else
+        raise "Invalid language"
       end
     rescue => e
+      puts "Error: #{e}"
       @submission.update_column(:status, "Fatal Error")
     ensure
-      remove_machine
+      if @docker_container.present?
+        puts "Removing Container for submission #{@submission.id}"
+        @docker_container.delete(force: true) 
+      end
     end
   end
 
   def run_c
-    compiler = (@submission.language == "C") ? "gcc" : "g++"
-    extension = (@submission.language == "C") ? "c" : "cpp"
-
-    run_command_in_container_as_user("mv source_code source_code.#{extension}")
-    errors = run_command_in_container_as_user("#{compiler} -w source_code.#{extension} -o a.out")
-    if errors.present?
-      @submission.update(status: "Compilation Failed".to_sym, grade: 0)
-      return
-    else
-      @submission.update(status: "Running".to_sym)
-    end
+    compile_c
+    binding.pry
     solved = 0
     samples = @submission.work.samples
-    samples.each do |sample|
-      output = ""
-      begin Timeout.timeout(2) do
-        output = run_command_in_container_as_user("cat .samples/#{sample.id} | ./a.out")
-        if output.downcase.include?("segmentation fault")
-          @submission.update(status: "Memory limit exceeded".to_sym, grade: 0)
-          return false
-        end
-      end
-      rescue Timeout::Error
-        @submission.update(status: "Timed out".to_sym, grade: 0)
-        return false
-      end
-      solved += 1 if output == sample.output
-    end
-    @submission.update(grade: @submission.get_grade(solved), status: "Finished".to_sym)
+
+    # samples.each do |sample|
+    #   output = nil
+
+    #   solved += 1 if output == sample.output
+    # end
+    # @submission.update(grade: @submission.get_grade(solved), status: "Finished".to_sym)
   end
 
-  ##### VIRTUAL MACHINE FUNCTIONS #####
-
-  def prepare_machine
-    ##### make sure there is available memory & cpu left. ##### DO ME!
-    run_docker_command("run --cap-add=sys_nice -itd --network none --memory=256m --memory-swap=256m --name submission_#{@submission.id} vm")
-
-    # copy the code
-    file = Tempfile.new("submission_#{@submission.id}_")
-    file.write(@submission.code)
-    file.close
-    begin
-      run_docker_command("cp #{file.path} submission_#{@submission.id}:/home/code-grader/source_code")
-    ensure
-      file.unlink
-    end
-
-    # copy the samples
-    run_command_in_container_as_root("mkdir .samples")
-    @submission.work.samples.each do |sample|
-      file = Tempfile.new("sample_#{sample.id}_")
-      file.write(sample.input)
-      file.close
-      begin
-        run_docker_command("cp #{file.path} submission_#{@submission.id}:/home/code-grader/.samples/#{sample.id}")
-      ensure
-        file.unlink
-      end
-    end
-    run_command_in_container_as_root("chown -R code-grader:code-grader . ; chmod -R 700 .")
+  def compile_c
+    cmd = "#{@submission.compiler} #{@file_path} -o #{@dir_path}a.out"
+    run_bash_command(cmd)
   end
 
-  def remove_machine
-    run_docker_command("rm -f submission_#{@submission.id}")
-  end
+  def run_bash_command(cmd)
+    result = @docker_container.exec(cmd.split(" "))
 
-  def run_docker_command(command)
-    output = `docker #{command} 2>&1`
-    output = output.downcase
-    if output.include?("cannot connect to the docker") || output.include?("error") || output.include?("errors")
-      raise(output)
-    else
-      # LOG ME
-      puts("-------------------------------------------")
-      puts(command, output)
-      puts("-------------------------------------------")
+    if !result[2].zero?
+      puts "Error in bash cmd: ",  result
     end
-  end
-
-  def run_command_in_container_as_root(command, skip_raise = false)
-    query = "docker exec -i submission_#{@submission.id} /bin/sh -c 'cd /home/code-grader; #{command}' 2>&1"
-    output = `#{query}`
-    output = output.downcase
-    if output.include?("cannot connect to the docker") || output.include?("error") || output.include?("errors")
-      skip_raise.present? ? puts("LOG ME as user ERROR -> #{output}") : raise(output)
-    elsif output.include?("killed")
-      @submission.update(status: "Memory limit exceeded".to_sym, grade: 0)
-      raise("Container got killed!")
-    else
-      # LOG ME
-      puts("--------------------------")
-      puts(query, output)
-      puts("--------------------------")
-    end
-    output
-  end
-
-  def run_command_in_container_as_user(command)
-    run_command_in_container_as_root("su code-grader -c \"#{command}\" ", true)
+    result
   end
 end

@@ -8,7 +8,7 @@
       = f.text_area :code, class: "form-control code", value: @submission.code
       %br
       = "Language"
-      = f.select :language, Submission::LANGUAGES, selected: @submission.language
+      = f.select :language, Submission::LANGUAGES_MAP.keys, selected: @submission.language
       %br
       %br
       = f.submit @submission.id.present? ? "Update code" : "Submit code", class: "btn btn-success"

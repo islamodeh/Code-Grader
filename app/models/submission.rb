@@ -8,12 +8,15 @@ class Submission < ApplicationRecord
               "Memory limit exceeded",
               "Cheated"].freeze
 
-  LANGUAGES = %w[C C++].freeze
   C_EX = "#include <stdio.h>
   int main(void) {
     // your code goes here
     return 0;
   }".freeze
+
+  LANGUAGES_MAP = { "c" => { extension: ".c", docker_image_tag: "c_vm", compiler: "gcc" },
+                    "c++" => { extension: ".cpp", docker_image_tag: "c_vm", compiler: "g++" },
+                  }.freeze
 
   belongs_to :userable, polymorphic: true
   belongs_to :work
@@ -21,7 +24,7 @@ class Submission < ApplicationRecord
 
   validates :code, :language, :status, presence: :true
   validates :status, inclusion: { in: STATUSES }
-  validates :language, inclusion: { in: LANGUAGES }
+  validates :language, inclusion: { in: LANGUAGES_MAP.keys }
   validate -> { errors.add(:submission, "is closed!") if !work.can_submit? && userable_type != "Instructor" }
 
   before_destroy -> { CheatLog.where(cheated_from_submission_id: id).destroy_all }
@@ -74,5 +77,25 @@ class Submission < ApplicationRecord
     end
 
     cheat_flag
+  end
+
+  def docker_image!
+    Docker::Image.get(docker_image_tag)
+  end
+
+  def create_container!
+    Docker::Container.create({ 'Image' => docker_image!.id, 'tty' => true, name: "Submission_#{id}" })
+  end
+
+  def docker_image_tag
+    LANGUAGES_MAP[language].try(:[], :docker_image_tag)
+  end
+
+  def extension
+    LANGUAGES_MAP[language].try(:[], :extension)
+  end
+
+  def compiler
+    LANGUAGES_MAP[language].try(:[], :compiler)
   end
 end
