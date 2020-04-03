@@ -84,7 +84,7 @@ class Submission < ApplicationRecord
   end
 
   def create_container!
-    Docker::Container.create({ 'Image' => docker_image!.id, 'tty' => true, name: "Submission_#{id}" })
+    Docker::Container.create({ 'Image' => docker_image!.id, 'tty' => true, name: "submission_#{id}" })
   end
 
   def docker_image_tag

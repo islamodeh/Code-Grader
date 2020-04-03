@@ -3,14 +3,18 @@ class Sample < ApplicationRecord
   validates :input, :output, presence: :true
   validates :work_id, uniqueness: { scope: [:input, :output], message: "Sample already exist!" }
 
-  # before save, remove extra spaces and lines both from right and left of each sample!
-  # for more accurcy
   before_save :remove_unwanted_characters
+  before_save :strip_samples
 
   scope :sorted, -> { order(created_at: :asc) }
 
   def remove_unwanted_characters
-    self.input = input.gsub("\r", "")
-    self.output = output.gsub("\r", "")
+    self.input = input.gsub("\r\n", "\n")
+    self.output = output.gsub("\r\n", "\n")
+  end
+
+  def strip_samples
+    self.input = input.strip
+    self.output = output.strip
   end
 end

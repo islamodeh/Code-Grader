@@ -5,7 +5,8 @@ class RunCode < ActiveJob::Base
   def perform(submission)
     @submission = submission
     @dir_path = "/"
-    @file_path = @dir_path + "source#{@submission.extension}"
+    @source_code_path = @dir_path + "source#{@submission.extension}"
+    @input_path = @dir_path + ".input.txt"
     run_code!
   end
 
@@ -20,7 +21,7 @@ class RunCode < ActiveJob::Base
     begin
       @docker_container = @submission.create_container!
       @docker_container.start
-      @docker_container.store_file(@file_path, @submission.code)
+      @docker_container.store_file(@source_code_path, @submission.code)
 
       case @submission.language
       when "c", "c++"
@@ -41,25 +42,27 @@ class RunCode < ActiveJob::Base
 
   def run_c
     compile_c
-    binding.pry
     solved = 0
     samples = @submission.work.samples
 
-    # samples.each do |sample|
-    #   output = nil
+    samples.each do |sample|
+      @docker_container.store_file(@input_path, sample.input)
+      output_result = run_bash_command("#{@dir_path}a.out < #{@input_path}")
 
-    #   solved += 1 if output == sample.output
-    # end
-    # @submission.update(grade: @submission.get_grade(solved), status: "Finished".to_sym)
+      if output_result[2].zero? && output_result[0][0] == sample.output
+        solved += 1
+      end
+    end
+    @submission.update(grade: @submission.get_grade(solved), status: "Finished".to_sym)
   end
 
   def compile_c
-    cmd = "#{@submission.compiler} #{@file_path} -o #{@dir_path}a.out"
+    cmd = "#{@submission.compiler} #{@source_code_path} -o #{@dir_path}a.out"
     run_bash_command(cmd)
   end
 
   def run_bash_command(cmd)
-    result = @docker_container.exec(cmd.split(" "))
+    result = @docker_container.exec(["bash", "-c", cmd])
 
     if !result[2].zero?
       puts "Error in bash cmd: ",  result
