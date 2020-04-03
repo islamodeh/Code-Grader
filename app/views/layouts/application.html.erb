@@ -10,59 +10,12 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Code Grader</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <%= link_to "Home", current_user.present? ? profile_path : root_path, class: "nav-link" %>
-        </li>
-        <%= current_user_navbar_functions %>
-        <li class="nav-item active">
-          <%= link_to "Help", help_path, class: "nav-link" %>
-        </li>
-      </ul>
-
-      <ul class="navbar-nav">
-        <% if current_user.present? %>
-          <!-- <img src="/assets/image.jpg" width="35" height="35" alt="" class="rounded-circle profile-icon"> -->
-          <li class="nav-item active">
-            <%= link_to current_user.email, edit_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Sign out", logout_path, method: :delete, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+  <body id="<%= controller_name %>_<%= action_name %>">
+    <%= render "shared/header" %>
+    <%= render "shared/flash_messages" %>
+    <div class="container-fluid">
+      <%= yield %>
     </div>
-  </nav>
-
-  <br>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <div class="container-fluid ">
-      <%# = back_button %>
-      <br>
-      <br>
-      <div class="center">
-        <% flash.each do |key, value| %>
-          <!-- for devise -->
-          <% if key === "alert" %>
-            <% key = "danger" %>
-          <% elsif key === "notice" %>
-            <% key = "success" %>
-          <% end %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-        <hr>
-        <br>
-        <br>
-        <%= yield %>
-      </div>
-    </div>
+    <%= render "shared/footer" %>
   </body>
 </html>

@@ -1,0 +1,24 @@
+#home_index {
+  .container-fluid {
+    .text-center {
+      display: block;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+  }
+}
+
+#home_help {
+  .container-fluid {
+    margin: 10% 10%;
+    width: 80%;
+  }
+}
+
+#sessions_new, #registrations_new, #passwords_new, #confirmations_new, #registrations_create, #passwords_create, #confirmations_create {
+  .container-fluid {
+    margin-top: 10%;
+    @extend .container;
+    @extend .col-lg-6;
+  }
+}

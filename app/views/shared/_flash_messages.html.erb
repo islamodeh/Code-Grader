@@ -1,0 +1,11 @@
+<div class="flash_messages">
+  <% flash.each do |key, value| %>
+    <!-- for devise -->
+    <% if key === "alert" %>
+      <% key = "danger" %>
+    <% elsif key === "notice" %>
+      <% key = "success" %>
+    <% end %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+</div>
