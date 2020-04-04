@@ -1,22 +1,9 @@
-.center
-  %h3
-    = "Welcome " + (current_instructor.full_name.present? ? current_instructor.full_name : current_instructor.email) + ", What would you like to do for today ?"
-  %br
-  %br
-  %br
-  %h4
-    .row
-      .col.col-sm-3
-      .col.col-sm-3
-        = link_to "Add a new course", new_instructor_course_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-      .col.col-sm-3
-        = link_to "View Courses", instructor_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-    %br
-    / .row
-    /   .col
-    /     = link_to "Send a notification to a student", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-    /   .col
-    /     = link_to "Report a problem", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-  %br
-  %br
-  %br
+%h3= "Welcome " + (current_instructor.full_name.present? ? current_instructor.full_name : current_instructor.email)
+%h3= "What would you like to do?"
+%h4
+  .row
+    .offset-xl-2.offset-lg-2
+    .col-xl-4.col-lg-4.col-md-6.col-sm-6.col-6
+      = link_to "Add Course", new_instructor_course_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+    .col-xl-4.col-lg-4.col-md-6.col-sm-6.col-6
+      = link_to "View Courses", instructor_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"

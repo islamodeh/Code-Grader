@@ -1,22 +1,13 @@
-.center
-  %h2= "My courses"
-  %br
-  - @courses.each_with_index do |course, index|
-    %h4
-      = course.name
-      = "(Section: #{course.section})"
-    %br
-    = course.description
-    %br
-    %br
-    %h6
-      = "Currently enrolled students: #{course.enrolled_students.count} student"
-      %br
-      %br
-      = link_to "You have #{course.pending_students.count} enrollment requests", students_instructor_course_path(course.id), class: "btn btn-info" if course.pending_students.count.positive?
-    %br
+- @courses.each_with_index do |course, index|
+  - if !index.zero?
+    %hr
+  %h4
+    = course.name
+    = "(Section: #{course.section})"
+  %h4= "Enrolled students: #{course.enrolled_students.count} students"
+  %h6= link_to "You have #{course.pending_students.count} enrollment requests", students_instructor_course_path(course.id), class: "btn btn-info" if course.pending_students.count.positive?
+  .actions
     = link_to "View Grades", grades_instructor_course_path(course.id), class: "btn btn-outline-danger"
     = link_to "Works", instructor_course_works_path(course.id), class: "btn btn-outline-danger"
     = link_to "Edit course", edit_instructor_course_path(course.id), class: "btn btn-outline-danger"
     = link_to "Students", students_instructor_course_path(course.id), class: "btn btn-outline-danger"
-    %hr

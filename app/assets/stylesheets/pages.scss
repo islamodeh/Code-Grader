@@ -2,23 +2,62 @@
   .container-fluid {
     .text-center {
       display: block;
-      margin-top: 5%;
-      margin-bottom: 5%;
+      margin-top: 5vh;
+      margin-bottom: 5vh;
     }
   }
 }
 
 #home_help {
   .container-fluid {
-    margin: 10% 10%;
-    width: 80%;
+    margin-top: 10vh;
+    @extend .container;
   }
 }
 
 #sessions_new, #registrations_new, #passwords_new, #confirmations_new, #registrations_create, #passwords_create, #confirmations_create {
   .container-fluid {
-    margin-top: 10%;
+    margin-top: 10vh;
     @extend .container;
     @extend .col-lg-6;
+  }
+}
+
+/* Instructor */
+#instructors_index {
+  .container-fluid {
+    @extend .text-center;
+    margin-top: 10vh;
+    .row {
+      margin-top: 10vh;
+    }
+  }
+}
+
+#courses_index {
+  .container-fluid {
+    @extend .container;
+    @extend .text-center;
+    margin-top: 5vh;
+
+    .actions {
+      margin-top: 5vh;
+    }
+  }
+
+}
+
+#courses_new, #courses_edit {
+  .container-fluid {
+    @extend .text-center;
+    margin-top: 5vh;
+    width: 50vw;
+    input:not([type="submit"]), textarea {
+      margin-bottom: 2vh;
+    }
+
+    textarea {
+      height: 100px;
+    }
   }
 }
