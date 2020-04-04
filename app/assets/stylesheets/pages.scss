@@ -15,7 +15,7 @@
   }
 }
 
-#sessions_new, #registrations_new, #passwords_new, #confirmations_new, #registrations_create, #passwords_create, #confirmations_create {
+#sessions_new, #registrations_new, #registrations_create, #registrations_edit, #registrations_update, #passwords_new, #passwords_create, #confirmations_new, #confirmations_create {
   .container-fluid {
     margin-top: 10vh;
     @extend .container;
