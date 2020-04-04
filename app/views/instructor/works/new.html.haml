@@ -17,4 +17,4 @@
     = f.label :end_date
     = f.datetime_select :end_date, default: client_zone_time(DateTime.current + 1.month)
     %br
-    = f.submit "Create work!", class: "btn btn-success"
+    = f.submit "Create work", class: "btn btn-success"

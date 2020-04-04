@@ -8,12 +8,15 @@ class Instructor::CoursesController < Instructor::InstructorsController
   end
 
   def create
-    if (course = current_instructor.courses.create(params_require)) && course.valid?
-      flash[:success] = "Course created Succesfully!"
+    @course = current_instructor.courses.new(course_param_require)
+
+    if @course.save
+      flash[:success] = "Course created Succesfully"
+      redirect_to(instructor_courses_path)
     else
-      flash[:danger] = course.errors.full_messages.join(", ")
+      flash[:danger] = @course.errors.full_messages.join(", ")
+      render :new
     end
-    redirect_to(instructor_courses_path)
   end
 
   def edit
@@ -22,17 +25,19 @@ class Instructor::CoursesController < Instructor::InstructorsController
 
   def update
     @course = current_instructor.courses.find_by(id: params[:id])
-    if @course.present? && @course.update(params_require)
-      flash[:success] = "Course Updated!"
+
+    if @course.update(course_param_require)
+      flash[:success] = "Course Updated"
+      redirect_to(instructor_courses_path)
     else
       flash[:danger] = @course.errors.full_messages.join(", ")
+      render :edit
     end
-    redirect_to(instructor_courses_path)
   end
 
   def destroy
     @course = current_instructor.courses.find_by(id: params[:id])
-    flash[:success] = "#{@course.name} deleted Succesfully!" if @course.destroy
+    flash[:success] = "#{@course.name} deleted Succesfully" if @course.destroy
     redirect_to(instructor_courses_path)
   end
 
@@ -68,7 +73,7 @@ class Instructor::CoursesController < Instructor::InstructorsController
 
   private
 
-  def params_require
+  def course_param_require
     params.require(:course).permit(:name, :section, :description)
   end
 end

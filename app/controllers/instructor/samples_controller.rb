@@ -14,24 +14,28 @@ class Instructor::SamplesController < Instructor::InstructorsController
   def create
     course = current_instructor.courses.find_by(id: params[:course_id])
     work = course.works.find_by(id: params[:work_id])
+    @sample = work.samples.new(sample_params_require)
 
-    if (sample = work.samples.create(params_require)) && sample.valid?
+    if @sample.save
       flash[:success] = "Sample created!"
+      redirect_to(instructor_course_work_samples_path(course.id, work.id))
     else
-      flash[:danger] = sample.errors.full_messages.join(", ")
+      flash[:danger] = @sample.errors.full_messages.join(", ")
+      render :new
     end
-    redirect_to(instructor_course_work_samples_path(course.id, work.id))
   end
 
   def update
     course = current_instructor.courses.find_by(id: params[:course_id])
     work = course.works.find_by(id: params[:work_id])
-    sample = work.samples.find_by(id: params[:id])
-    if sample.update(params_require)
+    @sample = work.samples.find_by(id: params[:id])
+
+    if @sample.update(sample_params_require)
       flash[:success] = "Sample updated!"
     else
-      flash[:danger] = sample.errors.full_messages.join(", ")
+      flash[:danger] = @sample.errors.full_messages.join(", ")
     end
+
     redirect_to(instructor_course_work_samples_path(course.id, work.id))
   end
 
@@ -39,15 +43,17 @@ class Instructor::SamplesController < Instructor::InstructorsController
     course = current_instructor.courses.find_by(id: params[:course_id])
     work = course.works.find_by(id: params[:work_id])
     sample = work.samples.find_by(id: params[:id])
+
     if sample.destroy
       flash[:success] = "Sample deleted!"
     else
       flash[:danger] = sample.errors.full_messages
     end
+
     redirect_to(instructor_course_work_samples_path(course.id, work.id))
   end
 
-  def params_require
+  def sample_params_require
     params.require(:sample).permit(:input, :output)
   end
 end

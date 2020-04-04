@@ -1,41 +1,31 @@
-.center
-  %h2
-    = "You have #{@course.assignments.count} Assignments & #{@course.quizzes.count} Quizzes for #{@course.name} course!"
-    %br
-    %br
-    = link_to "Add a new Assignment/Quiz", new_instructor_course_work_path(@course.id), class: "btn btn-success"
-    %br
-    %br
-  %h4="Works"
-  %hr
-
-  .row.center
-    .col.overflow-wrap
-      = "Type"
-    .col.overflow-wrap
-      = "# Of submissions"
-    .col.overflow-wrap
-      = "Description"
-    .col.overflow-wrap
-      = "Starting from"
-    .col.overflow-wrap
-      = "Ending in"
-    .col.overflow-wrap
-      = ""
-- @course.works.each do |work|
-  %br
-  .row.center
-    .col.overflow-wrap
-      = work.work_type
-    .col.overflow-wrap
-      = work.submissions.count
-    .col.overflow-wrap
-      = work.description
-    .col.overflow-wrap
-      = client_zone_time(work.start_date).to_s(:day_month_year_hour_minute)
-    .col.overflow-wrap
-      = client_zone_time(work.end_date).to_s(:day_month_year_hour_minute)
-    .col.overflow-wrap
-      = link_to "Samples", instructor_course_work_samples_path(@course.id,work.id), class: "btn btn-warning"
-      = link_to "Edit", edit_instructor_course_work_path(@course.id, work.id), class: "btn btn-warning"
-  %hr
+.text-center
+  %h2= "You have #{@course.assignments.count} Assignments & #{@course.quizzes.count} Quizzes for #{@course.name} course!"
+  %h2= link_to "Add a new Assignment/Quiz", new_instructor_course_work_path(@course.id), class: "btn btn-primary"
+%hr
+.row
+  - @course.works.each do |work|
+    .col-xl-6.col-l-6.col-md-6.col-sm-12.col-12
+      .work_div
+        .field
+          %label.label
+            = "Type: "
+            %span= work.work_type
+        .field
+          %label.label
+            = "Submission count: "
+            %span= work.submissions.count
+        .field
+          %label.label
+            = "Description: "
+            %span= work.description
+        .field
+          %label.label
+            = "Start time: "
+            %span= client_zone_time(work.start_date)
+        .field
+          %label.label
+            = "End time: "
+            %span= client_zone_time(work.end_date)
+        .text-center
+          = link_to "Samples", instructor_course_work_samples_path(@course.id,work.id), class: "btn btn-dark"
+          = link_to "Edit", edit_instructor_course_work_path(@course.id, work.id), class: "btn btn-dark"

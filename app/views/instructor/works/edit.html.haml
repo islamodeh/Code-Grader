@@ -17,5 +17,5 @@
     = f.label :end_date
     = f.datetime_select :end_date
     %br
-    = f.submit "Update #{@work.work_type}", class: "btn btn-success"
-    = link_to "Delete #{@work.work_type}!", instructor_course_work_path(@course.id, @work.id), class: "btn btn-danger", data: { confirm: "This will remove all student submissions and grades, are you sure ?" }, method: :delete
+    = f.submit "Update #{@work.work_type.downcase}", class: "btn btn-success"
+    = link_to "Delete #{@work.work_type.downcase}", instructor_course_work_path(@course.id, @work.id), class: "btn btn-danger", data: { confirm: "This will remove all student submissions and grades, are you sure ?" }, method: :delete

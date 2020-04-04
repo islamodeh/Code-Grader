@@ -28,6 +28,7 @@
   .container-fluid {
     @extend .text-center;
     margin-top: 10vh;
+
     .row {
       margin-top: 10vh;
     }
@@ -44,14 +45,14 @@
       margin-top: 5vh;
     }
   }
-
 }
 
-#courses_new, #courses_edit {
+#courses_new, #courses_create, #courses_update, #courses_edit {
   .container-fluid {
     @extend .text-center;
     margin-top: 5vh;
     width: 50vw;
+
     input:not([type="submit"]), textarea {
       margin-bottom: 2vh;
     }
@@ -61,3 +62,80 @@
     }
   }
 }
+
+#works_index {
+  .container-fluid {
+    margin-top: 5vh;
+    @extend .container;
+
+    .work_div {
+      background: rgb(237, 238, 237);
+      padding: 5% 5%;
+      border-radius: 40px;
+      margin-bottom: 2vh;
+      overflow: hidden;
+
+      span {
+        display: inline-block;
+        max-width: 75%;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+#works_new, #works_create, #works_update, #works_edit {
+  .container-fluid {
+    @extend .text-center;
+    margin-top: 5vh;
+    width: 50vw;
+
+    input:not([type="submit"]), textarea {
+      margin-bottom: 2vh;
+    }
+
+    textarea {
+      height: 100px;
+    }
+  }
+}
+
+
+#samples_index {
+  .container-fluid {
+    margin-top: 5vh;
+    @extend .container;
+
+    .row {
+      margin-top: 5vh;
+
+      .actions {
+        margin-top: 2vh;
+      }
+    }
+  }
+}
+
+#samples_new, #samples_create, #samples_update, #samples_edit {
+  .container-fluid {
+    @extend .text-center;
+    margin-top: 5vh;
+    width: 50vw;
+
+    input:not([type="submit"]), textarea {
+      margin-bottom: 2vh;
+    }
+    textarea {
+      height: 100px;
+    }
+  }
+}
+
+#submissions_index {
+  .container-fluid {
+    margin-top: 5vh;
+    @extend .container;
+    @extend .text-center;
+  }
+}
+
