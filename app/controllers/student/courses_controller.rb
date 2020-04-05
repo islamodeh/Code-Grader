@@ -5,7 +5,6 @@ class Student::CoursesController < Student::StudentsController
   end
 
   def search
-    # add search filters
     @pending_courses = current_student.pending_courses
     @courses = Course.all.includes(:instructor) - (current_student.courses + @pending_courses)
   end
@@ -18,9 +17,10 @@ class Student::CoursesController < Student::StudentsController
         flash[:info] = "Requested to join #{enrollment.course.name}"
       end
     elsif params[:state] == "unenroll"
-      flash[:info] = "Requested cancelled to join #{enrollment.course.name}"
+      flash[:info] = "Cancelled request to join #{enrollment.course.name}"
       enrollment.destroy
     end
+
     redirect_to(search_student_courses_path)
   end
 end

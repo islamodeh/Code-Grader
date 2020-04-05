@@ -1,58 +1,40 @@
-.center
-  - if @pending_courses.present?
-    %h2= "Pending Courses"
-    .row
-      .col
-        = "#"
-      .col
-        = "Name"
-      .col
-        = "Instructor"
-      .col
-        = "Section"
-      .col
-        = ""
-    %br
-    %hr
-    - @pending_courses.each_with_index do |course, index|
-      .row
-        .col
-          = index + 1
-        .col
-          = course.name
-        .col
-          = course.instructor.email
-        .col
-          = course.section
-        .col
-          = link_to "Cancel request", enroll_student_course_path(course.id, state: "unenroll"), method: :post, class: "btn btn-danger"
-      %hr
-    %br
-    %br
+.row
+  .col
+    %b= "#"
+  .col
+    %b= "Name"
+  .col
+    %b= "Instructor"
+  .col
+    %b= "Section"
+  .col
+    = ""
+
+- @pending_courses.each_with_index do |course, index|
   .row
     .col
-      = "#"
+      = index + 1
     .col
-      = "Name"
+      = course.name
     .col
-      = "Instructor"
+      = course.instructor.email
     .col
-      = "Section"
+      = course.section
     .col
-      = ""
-  %br
+      = link_to "Cancel request", enroll_student_course_path(course.id, state: "unenroll"), method: :post, class: "btn btn-danger"
   %hr
-  %h2="Courses"
-  - (@courses).each_with_index do |course, index|
-    .row
-      .col
-        = index + 1
-      .col
-        = course.name
-      .col
-        = course.instructor.email
-      .col
-        = course.section
-      .col
-        = link_to "Join course", enroll_student_course_path(course.id, state: "enroll"), method: :post, class: "btn btn-success"
-    %hr
+
+%h2= "Courses"
+- (@courses).each_with_index do |course, index|
+  .row
+    .col
+      = index + 1
+    .col
+      = course.name
+    .col
+      = course.instructor.email
+    .col
+      = course.section
+    .col
+      = link_to "Join course", enroll_student_course_path(course.id, state: "enroll"), method: :post, class: "btn btn-success"
+  %hr

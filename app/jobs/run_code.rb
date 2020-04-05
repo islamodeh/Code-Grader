@@ -41,7 +41,7 @@ class RunCode < ActiveJob::Base
   end
 
   def run_c
-    compile_c
+    compile_c!
     solved = 0
     samples = @submission.work.samples
 
@@ -56,9 +56,10 @@ class RunCode < ActiveJob::Base
     @submission.update(grade: @submission.get_grade(solved), status: "Finished".to_sym)
   end
 
-  def compile_c
+  def compile_c!
     cmd = "#{@submission.compiler} #{@source_code_path} -o #{@dir_path}a.out"
-    run_bash_command(cmd)
+    result = run_bash_command(cmd)
+    raise "Compilation error" if !result[2].zero?
   end
 
   def run_bash_command(cmd)

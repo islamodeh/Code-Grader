@@ -1,8 +1,1 @@
-= form_for [:instructor, @course] do |f|
-  = f.label :course_name
-  = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "Programming in C"
-  = f.label :section
-  = f.text_field :section, autofocus: true, class: "form-control center", placeholder: "11 AM - 12:30 PM"
-  = f.label :description
-  = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "Program design, development, running, and testing, and debugging programs. Syntax and semantics of the programming language C++.. "
-  = f.submit "Create course!", class: "btn btn-success"
+= render "form", course: @course

@@ -1,22 +1,9 @@
-.center
-  %h3
-    = "Welcome " + (current_student.full_name.present? ? current_student.full_name : current_student.email) + ", What would you like to do for today ?"
-  %br
-  %br
-  %br
-  %h4
-    .row
-      .col.col-sm-3
-      .col.col-sm-3
-        = link_to "Join a course", search_student_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-      .col.col-sm-3
-        = link_to "My Courses", student_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-    %br
-    / .row
-    /   .col
-    /     = link_to "Send a notification to instructor", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-    /   .col
-    /     = link_to "Report a problem", "#", class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
-  %br
-  %br
-  %br
+%h3
+  = "Welcome " + (current_student.full_name.present? ? current_student.full_name : current_student.email) + ", What would you like to do for today ?"
+%h4
+  .row
+    .col.col-sm-3
+    .col.col-sm-3
+      = link_to "Join a course", search_student_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"
+    .col.col-sm-3
+      = link_to "My Courses", student_courses_path, class: "btn btn-outline-danger btn-lg  btn-block instructor-index-button"

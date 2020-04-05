@@ -1,46 +1,34 @@
-.center
-  %h2
-    = "#{@course.name} Students"
-    %br
-    %br
-  - if @pending_students.count.positive?
-    %h4="Enrollment Requests"
-    %hr
-    .row.center
-      .col
-        = "#"
-      .col.overflow-wrap
-        = "Student email"
-      .col.overflow-wrap
-        =''
-    - @pending_students.each_with_index do |pending, index|
-      %br
-      .row.center
-        .col.overflow-wrap
-          = index + 1
-        .col.overflow-wrap
-          = pending.student.email
-        .col.overflow-wrap
-          = link_to "Approve",handle_enrollment_instructor_course_path(course: @course.id, student_id: pending.student_id, status: "Accepted"), class: "btn btn-success"
-          = link_to "Decline",handle_enrollment_instructor_course_path(course: @course.id, student_id: pending.student_id, status: "Declined"), class: "btn btn-danger"
+%h2
+  = "#{@course.name} students"
+
+.row
+  .col
+    %b= "#"
+  .col
+    %b= "Student email"
+  .col
+    =''
+
+- if @pending_students.count.positive?
+  - @pending_students.each_with_index do |pending, index|
+    - if index.present?
       %hr
-    %br
-  %h4="Students"
-  %hr
-  .row.center
-    .col
-      = "#"
-    .col.overflow-wrap
-      = "Student email"
-    .col.overflow-wrap
-      =''
+    .row
+      .col
+        = index + 1
+      .col
+        = pending.student.email
+      .col
+        = link_to "Approve",handle_enrollment_instructor_course_path(course: @course.id, student_id: pending.student_id, status: "Accepted"), class: "btn btn-success"
+        = link_to "Decline",handle_enrollment_instructor_course_path(course: @course.id, student_id: pending.student_id, status: "Declined"), class: "btn btn-danger"
+
 - @enrolled_students.each_with_index do |enrolled, index|
-  %br
-  .row.center
-    .col.overflow-wrap
+  - if index.present?
+    %hr
+  .row
+    .col
       = index + 1
-    .col.overflow-wrap
+    .col
       = enrolled.student.email
-    .col.overflow-wrap
+    .col
       = link_to "Kick",handle_enrollment_instructor_course_path(course: @course.id, student_id: enrolled.student_id, status: "Kick"), class: "btn btn-danger", data: { confirm: "Kicking the student will remove the student submissions and grades, kick #{enrolled.student.email} ?" }
-  %hr

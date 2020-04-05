@@ -1,7 +1,6 @@
-.center
-  = form_for [:instructor, :course, :work, @sample] do |f|
-    %h3= "Input sample"
-    = f.text_area :input, class: "form-control enable-resize", placeholder: "1 2"
-    %h3= "Expected output sample"
-    = f.text_area :output, class: "form-control enable-resize", placeholder: "3"
-    = f.submit "Create sample", class: "btn btn-success"
+= form_for [:instructor, :course, :work, @sample] do |f|
+  %h3= "Input sample"
+  = f.text_area :input, class: "form-control enable-resize", placeholder: "1 2"
+  %h3= "Expected output sample"
+  = f.text_area :output, class: "form-control enable-resize", placeholder: "3"
+  = f.submit "Create sample", class: "btn btn-success"

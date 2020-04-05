@@ -1,18 +1,10 @@
-.center
-  %h2= "My courses"
-  %br
-  - @courses.each_with_index do |course, index|
-    %h4
-      = course.name
-      = "(Section: #{course.section})"
-    %br
-    = course.description
-    %br
-    %br
-    %h6
-      = "Grade: #{course.student_grade(current_student.id)} %"
-      %br
-    %br
-    = link_to "Works", student_course_works_path(course.id), class: "btn btn-outline-danger"
-    / = link_to "View Grade", "", class: "btn btn-outline-danger"
-    %hr
+%h2= "My courses"
+- @courses.each_with_index do |course, index|
+  %h4
+    = course.name
+    = "(Section: #{course.section})"
+  = course.description
+  %h6
+    = "Grade: #{course.student_grade(current_student.id)} %"
+  = link_to "Works", student_course_works_path(course.id), class: "btn btn-outline-danger"
+  %hr

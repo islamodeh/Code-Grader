@@ -1,0 +1,44 @@
+.row
+  - course.works.each do |work|
+    .col-xl-6.col-l-6.col-md-6.col-sm-12.col-12
+      .work_div
+        .field
+          %label.label
+            = "Type: "
+            %span= work.work_type
+
+        - if current_user.class.name == Instructor.name
+          .field
+            %label.label
+              = "Submission count: "
+              %span= work.submissions.count
+
+        - if current_user.class.name == Student.name
+          .field
+            %label.label
+              = "Grade: "
+              %span=  work.student_grade(current_user.id)
+
+        .field
+          %label.label
+            = "Description: "
+            %span= work.description
+
+        .field
+          %label.label
+            = "Start time: "
+            %span= client_zone_time(work.start_date)
+
+        .field
+          %label.label
+            = "End time: "
+            %span= client_zone_time(work.end_date)
+
+        - if current_user.class.name == Instructor.name
+          .text-center
+            = link_to "Samples", instructor_course_work_samples_path(course.id,work.id), class: "btn btn-dark"
+            = link_to "Edit", edit_instructor_course_work_path(course.id, work.id), class: "btn btn-dark"
+
+        - if current_user.class.name == Student.name
+          .text-center
+            = link_to "Submit code", student_course_work_submissions_path(course.id, work.id), class: "btn btn-dark"

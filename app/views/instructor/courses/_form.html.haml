@@ -1,0 +1,13 @@
+= form_for [:instructor, course] do |f|
+  = f.label :name
+  = f.text_field :name, class: "form-control center"
+  = f.label :section
+  = f.text_field :section, class: "form-control center"
+  = f.label :description
+  = f.text_area :description, class: "form-control center"
+
+  - if Course.exist(course.id)
+    = f.submit "Update", class: "btn btn-success"
+    = link_to "Delete course", instructor_course_path(course.id), class: "btn btn-danger", data: { confirm: "This will remove all works, all student submissions and their grades. are you sure ?" }, method: :delete
+  - else
+    = f.submit "Save", class: "btn btn-success"

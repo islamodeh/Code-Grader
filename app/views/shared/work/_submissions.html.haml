@@ -1,0 +1,38 @@
+- student_submissions ||= false
+
+- if !student_submissions.present?
+  %h2= "Submissions for #{work.name}"
+  - if current_user.class.name == Instructor.name
+    %span= link_to "Add a new submission", new_instructor_course_work_submission_path(course.id,work.id), class: "btn btn-dark"
+
+  - if current_user.class.name == Student.name
+    %span= link_to "Add a new submission", new_student_course_work_submission_path(course.id,work.id), class: "btn btn-dark"
+- else
+  %h2= "Student #{student.email} submissions for #{work.name}"
+.row
+  .col
+    = "#"
+  .col
+    = "Grade"
+  .col
+    = "Status"
+  .col
+    = "Date"
+  .col
+    = ""
+- submissions.each_with_index do |submission, index|
+  - if index.present?
+    %hr
+
+  .row
+    .col
+      = index + 1
+    .col
+      = submission.grade.to_s + " %"
+    .col
+      = submission.status
+    .col
+      = client_zone_time(submission.created_at)
+    .col
+      = link_to "Show Code", "#submission_#{submission.id}", { 'data-toggle' =>  "modal", class: 'btn btn-outline-primary' }
+      = render "shared/work/code_modal", submission: submission

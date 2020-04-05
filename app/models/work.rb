@@ -18,7 +18,7 @@ class Work < ApplicationRecord
   end
 
   def can_submit?
-    DateTime.utc.now >= start_date && DateTime.utc.now <= end_date
+    DateTime.now.utc >= start_date && DateTime.now.utc <= end_date
   end
 
   def student_grade(student_id)

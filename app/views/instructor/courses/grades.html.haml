@@ -1,31 +1,27 @@
-.center
-  %h2
-    = "#{@course.name} Grades"
-    %br
-    %br
-  %h4="Students"
-  %hr
-  .container-fluid
-    .row
-      .col.overflow-wrap
-        = "#"
-      .col.overflow-wrap
-        = "Email"
-      - @works.each do |work|
-        .col.overflow-wrap
-          = " #{work.name} %"
-      .col.overflow-wrap
-        = "Total %"
-    - @enrolled_students.each_with_index do |enrollment, index|
-      %br
-      .row
-        .col.overflow-wrap
-          = index + 1
-        .col.overflow-wrap
-          = enrollment.student.email
-        - @works.each do |work|
-          .col.overflow-wrap
-            = link_to work.student_grade(enrollment.student.id), instructor_course_work_student_submissions_path(@course.id, work.id, enrollment.student.id), title: "View #{enrollment.student.email} submissions for work #{work.name}", class: "btn btn-outline-warning"
-        .col.overflow-wrap
-          = @course.student_grade(enrollment.student.id)
+%h2
+  = "#{@course.name} grades"
+%h4= "Students"
+.container-fluid
+  .row
+    .col
+      %b= "#"
+    .col
+      %b= "Email"
+    - @works.each do |work|
+      .col
+        %b= " #{work.name} %"
+    .col
+      %b= "Total %"
+  - @enrolled_students.each_with_index do |enrollment, index|
+    - if index.present?
       %hr
+    .row
+      .col
+        = index + 1
+      .col
+        = enrollment.student.email
+      - @works.each do |work|
+        .col
+          = link_to work.student_grade(enrollment.student.id), instructor_course_work_student_submissions_path(@course.id, work.id, enrollment.student.id), title: "View #{enrollment.student.email} submissions for work #{work.name}", class: "btn btn-outline-primary"
+      .col
+        = @course.student_grade(enrollment.student.id)

@@ -1,0 +1,20 @@
+= form_for([:instructor, course, work]) do |f|
+  = f.label :work_name
+  = f.text_field :name, autofocus: true, class: "form-control center", placeholder: "ex: Assignment1"
+  = f.label :description
+  = f.text_area :description, autofocus: true, class: "form-control center", placeholder: "Chapter 1"
+  = f.label :work_type
+  = f.select :work_type, Work::WORK_TYPE
+  .label_with_time
+    = f.label :start_date
+    = f.datetime_select :start_date
+
+  .label_with_time
+    = f.label :end_date
+    = f.datetime_select :end_date
+
+  - if Work.exists?(work.id)
+    = f.submit "Update #{work.work_type.downcase}", class: "btn btn-success"
+    = link_to "Delete #{work.work_type.downcase}", instructor_course_work_path(course.id, work.id), class: "btn btn-danger", data: { confirm: "This will remove all student submissions and grades, are you sure ?" }, method: :delete
+  - else
+    = f.submit "Save", class: "btn btn-success"
