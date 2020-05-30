@@ -8,7 +8,7 @@ https://docs.docker.com/get-docker/
 
 ```shell
 git clone git@github.com:islamodeh/Code-Grader.git
-cd Code Grader
+cd Code-Grader/
 ```
 
 ### Check your Ruby version
@@ -19,7 +19,7 @@ ruby -v
 
 The ouput should start with something like `ruby 2.6`
 
-If not, install the right ruby version using [rbenv](https://github.com/rbenv/rbenv) (it could take a while):
+If not, install the right ruby version using rvm(it could take a while):
 
 ```shell
 rvm install 2.6
