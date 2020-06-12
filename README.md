@@ -30,7 +30,7 @@ rvm install 2.6
 Using [Bundler](https://github.com/bundler/bundler) and [Yarn](https://github.com/yarnpkg/yarn):
 
 ```shell
-bundle && yarn
+bundle install
 ```
 
 ### Initialize the database
@@ -40,8 +40,9 @@ rails db:create db:migrate db:seed
 ```
 
 ### Prepare Docker Images
+* Make sure docker is running locally
 ```shell
-rake os:prepare_cm_vm
+rake os:prepare_c_vm
 ```
 
 ## Run the server
@@ -49,3 +50,4 @@ rake os:prepare_cm_vm
 ```shell
 rails s
 ```
+Check http://localhost:3000
