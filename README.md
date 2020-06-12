@@ -40,6 +40,7 @@ rails db:create db:migrate db:seed
 ```
 
 ### Prepare Docker Images
+* Make sure docker is running locally
 ```shell
 rake os:prepare_c_vm
 ```
