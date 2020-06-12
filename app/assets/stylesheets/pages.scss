@@ -151,7 +151,6 @@
   .container-fluid {
     margin-top: 5vh;
     @extend .container;
-    @extend .text-center;
 
     textarea {
       height: 60vh;
@@ -159,6 +158,7 @@
 
     .actions {
       margin-top: 2vh;
+      @extend .text-center;
     }
   }
 }

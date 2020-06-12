@@ -13,7 +13,21 @@
 //= require rails-ujs
 //= require activestorage
 //= require jquery
-// require popper
+//= require code_mirror
+//= require clike
 //= require bootstrap
-//= require turbolinks
+// require popper
+// require turbolinks
 //= require_tree .
+
+
+$(document).ready(function() {
+  let myTextarea = document.getElementById("submission_code");
+  var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true,
+    mode: "text/x-c++src",
+    theme: "cobalt",
+  });
+})
