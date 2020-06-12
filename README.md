@@ -30,7 +30,7 @@ rvm install 2.6
 Using [Bundler](https://github.com/bundler/bundler) and [Yarn](https://github.com/yarnpkg/yarn):
 
 ```shell
-bundle && yarn
+bundle install
 ```
 
 ### Initialize the database
