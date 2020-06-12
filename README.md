@@ -7,7 +7,7 @@ https://docs.docker.com/get-docker/
 ### Clone the repository
 
 ```shell
-git clone git@github.com:islamodeh/Code-Grader.git
+git clone git@github.com:islamodeh/code_grader.git
 cd code_grader/
 ```
 
