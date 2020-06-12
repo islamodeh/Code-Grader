@@ -3,8 +3,9 @@
 %h5
   = form_for [:instructor, :course, :work, @submission] do |f|
     = f.text_area :code, class: "form-control code", value: @submission.code
-    = "Language"
-    = f.select :language, @Submission::LANGUAGES_MAP.keys, selected: @submission.language
+    %h5.mt-2
+      %span= "Language"
+      = f.select :language, Submission::LANGUAGES_MAP.keys, selected: @submission.language
     .actions
       = f.submit @submission.id.present? ? "Update code" : "Submit code", class: "btn btn-success"
-      = link_to "Cancel", student_course_work_@submissions_path(@course.id, @work.id), class: "btn btn-danger"
+      = link_to "Cancel", instructor_course_work_submissions_path(@course.id, @work.id), class: "btn btn-danger"

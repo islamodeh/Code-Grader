@@ -1,7 +1,7 @@
 .text-center
   %h2= "#{@course.name} samples"
-  = link_to "Add new sample", new_instructor_course_work_sample_path(@course.id, @work.id), class: "btn btn-dark"
-  = link_to "My submissions", instructor_course_work_submissions_path(@course.id, @work.id), class: "btn btn-dark"
+  = link_to "Add new sample", new_instructor_course_work_sample_path(@course.id, @work.id), class: "btn btn-dark d-block d-sm-inline m-2"
+  = link_to "My submissions", instructor_course_work_submissions_path(@course.id, @work.id), class: "btn btn-dark d-block d-sm-inline m-2"
 .row
   .col-xl-3.col-lg-3.col-md-3.d-none.d-md-block
     = "#"
