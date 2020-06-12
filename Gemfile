@@ -9,7 +9,7 @@ gem 'haml'
 gem 'sucker_punch', '~> 2.0'
 
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.2.1'
+gem 'bootstrap', '~> 4.3.1'
 
 gem 'rubocop', '~> 0.63.0', require: false
 
