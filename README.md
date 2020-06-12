@@ -41,7 +41,7 @@ rails db:create db:migrate db:seed
 
 ### Prepare Docker Images
 ```shell
-rake os:prepare_cm_vm
+rake os:prepare_c_vm
 ```
 
 ## Run the server
