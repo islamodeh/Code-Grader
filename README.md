@@ -8,7 +8,7 @@ https://docs.docker.com/get-docker/
 
 ```shell
 git clone git@github.com:islamodeh/Code-Grader.git
-cd Code-Grader/
+cd code_grader/
 ```
 
 ### Check your Ruby version
