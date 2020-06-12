@@ -50,3 +50,4 @@ rake os:prepare_c_vm
 ```shell
 rails s
 ```
+Check http://localhost:3000
