@@ -32,7 +32,7 @@
 
 # Ignore database.yml file configrations.
 
-/config/database.yml
+# /config/database.yml
 
 # ignore unicorn logs
 /shared
