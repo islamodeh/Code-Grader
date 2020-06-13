@@ -92,12 +92,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: "psut.code-grader.com", port: 80 }
-  config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
-    port:                 587,
-    domain:               "gmail.com",
-    user_name:            Rails.application.credentials[Rails.env.to_sym][:email],
-    password:             Rails.application.credentials[Rails.env.to_sym][:email_password],
-    authentication:       :plain,
-  }
+  config.action_mailer.perform_deliveries = false
 end
